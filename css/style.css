@@ -25,12 +25,6 @@
     height: 100%;
 }
 
-/* section */
-.welcome {
-    background-color: gray;
-    height: calc(100vh - 100px);
-}
-
 /* flex */
 .flex {
     display: flex;

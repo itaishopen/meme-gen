@@ -1,0 +1,5 @@
+/* section */
+.welcome {
+    background-color: gray;
+    height: calc(100vh - 100px);
+}
