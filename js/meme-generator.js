@@ -76,7 +76,7 @@ function handleDownload() {
 }
 
 function onAddRow(rowId = rowNum++) {
-    var row = createRow(rowNum++);
+    var row = createRow(rowId);
     gCurrentMeme.rows.push(row);
     var strHTML = `<div row-item row-item${rowId}>
         <input class="txt ${rowId}" onkeyup="onInsertTxt(this)">
