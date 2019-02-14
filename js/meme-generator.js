@@ -90,7 +90,9 @@ function renderTools(row) {
 
 function onDeleteRow(elDeleteBtn) {
     var rowIdx = elDeleteBtn.classList[1].slice(-1);
-    gCurrentMeme.rows.splice(rowIdx, 1);
+    var rowId = findRowId(rowIdx)
+    gCurrentMeme.rows.splice(rowId, 1);
+    $(`.row-item${rowIdx}`).remove();
     renderText();
 }
 
@@ -180,5 +182,11 @@ function closeModal() {
 function findRowByIdx(rowIdx) {
     return gCurrentMeme.rows.find((currRow) => {
         return rowIdx === currRow.id;
+    });
+}
+
+function findRowId(rowId) {
+    return gCurrentMeme.rows.findIndex((currRow) => {
+        return rowId === currRow.id;
     });
 }
