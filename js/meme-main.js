@@ -6,7 +6,7 @@ function init() {
     gCurrentMemes = createMemes();
     var tags = combineTags(gCurrentMemes);
     var sorted = mostRepetedTags(tags);
-    console.log(sorted)
+    // console.log(sorted)
     let pageIdx = getCurrPageId();
     renderGallery(pageIdx);
 }

@@ -46,3 +46,8 @@ html, body {
 .align-center {
     align-items: center;
 }
+
+/* grid */
+.grid {
+    display: grid;
+}
