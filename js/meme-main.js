@@ -1,7 +1,7 @@
 'use strict'
 var gCurrentMemes;
 const MEME_KEY = 'meme';
-
+var rowNum = 3;
 
 function init() {
     gCurrentMemes = createMemes();
@@ -54,3 +54,5 @@ function onMemeChose(memeId) {
     window.location.assign('meme-generator.html');
     drawCanvase();
 }
+
+

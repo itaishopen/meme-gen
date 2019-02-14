@@ -3,7 +3,7 @@ var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
         line: 'world',
         size: 60,
         align: 'center',
-        color: 'white',
+        color: 'black',
         x: 250,
         y: 50,
         isShadow: false,
@@ -13,14 +13,13 @@ var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
         line: 'hello',
         size: 60,
         align: 'center',
-        color: 'white',
+        color: 'black',
         x: 250,
         y: 333,
         isShadow: false,
         font: 'Calibri',
     },
 ]};
-var rowNum = 0;
 
 function drawCanvase() {
     gCurrentMeme.meme = loadFromLocalStorage(MEME_KEY);
@@ -73,13 +72,22 @@ function handleDownload() {
    $('#download').attr('href', img);
 }
 
-function onAddRow() {
-    var row = createRow(rowNum++);
+function handleAddLine() {
+    var row = {
+        line: '',
+        size: 20,
+        align: 'left',
+        color: 'black',
+        isShadow: false,
+        x: 250,
+        y: 400,
+        font: 'Calibri',
+    }
     gCurrentMeme.rows.push(row);
-    var strHTML = `<div row-item row-item${rowNum}>
-        <input class="txt ${rowNum}" onkeyup="onInsertTxt(this)">
-        <input class="color color${rowNum}" type="color">
-    </div>
-    `;
-    document.querySelector('.text-container').innerHTML += strHTML;
+}
+
+function onColorChanged(elColorInput) {
+    var classList = elColorInput.classList[1].slice(-1);
+    console.log(classList);
+    
 }

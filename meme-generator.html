@@ -25,13 +25,13 @@
         <canvas id="my-canvas"></canvas>
         <div class="control">
             <div class="text-container">
+                <div class="row-item row-item0">
+                    <input class="txt txt0" onkeyup="onInsertTxt(this)">
+                    <input class="color color0" type="color" onchange="onColorChanged(this)">
+                </div>
                 <div class="row-item row-item1">
                     <input class="txt txt1" onkeyup="onInsertTxt(this)">
-                    <input class="color color1" type="color">
-                </div>
-                <div class="row-item row-item2">
-                    <input class="txt txt2" onkeyup="onInsertTxt(this)">
-                    <input class="color color2" type="color">
+                    <input class="color color1" type="color" onchange="onColorChanged(this)">
                 </div>
             </div>
             <button onclick="onAddRow()">Add</button>
