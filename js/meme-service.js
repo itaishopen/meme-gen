@@ -3,6 +3,7 @@ var gSearchBy = 'all';
 var gCurrentPageId = 0;
 const MEME_KEY = 'my-memes';
 const memesInPage = 15;
+var gMeme;
 
 function createMemes() {
     var memes = loadFromLocalStorage(MEME_KEY);
@@ -32,10 +33,19 @@ function findMemeById(memeId) {
 }
 
 function arrangeMemes() {
+    
     if (gSearchBy === 'all') return getMemes().sort(sortRating);
-    var memes = getMemes().map(function(meme) {
-        return meme.tags(gSearchBy);
+    var memes = getMemes().filter(function(meme) {
+        return meme.tags.every((tag) => {
+            gSearchBy = new RegExp(gSearchBy);
+            console.log(gSearchBy, gSearchBy.test(tag));
+
+            return gSearchBy.test(tag);
+            
+        })        
     });
+    console.log(memes);
+    
     return memes.sort(sortRating);
 }
 
@@ -64,5 +74,17 @@ function setCurrPageId(pageId) {
 
 function getNumberOfPages(memes) {
     return Math.ceil(memes / memesInPage)
+}
+
+function onSearchImg(elInputSearch) {
+    var txtEnterd = elInputSearch.value.split(' ');
+    var regex = `\b`;
+    txtEnterd.forEach(tagToSrch => {
+        regex += `(${tagToSrch})|`
+    });
+    regex = regex + `\b`;
+    // \b(word)|(word)\b
+    gSearchBy = regex;
+    setCurrPageId(0);
 }
 

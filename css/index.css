@@ -3,3 +3,12 @@
     background-color: gray;
     height: calc(100vh - 100px);
 }
+
+.top-container {
+    height: 200px;
+}
+.search-box {
+    height: 100px;
+}
+
+/* search input */

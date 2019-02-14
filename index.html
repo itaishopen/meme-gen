@@ -26,7 +26,10 @@
 
     <main>
         <div class="top-container">
-            <div class="search-box"></div>
+            <div class="search-box">
+                <input class="search-input" list="tags" onkeyup="onSearchImg(this)">
+
+            </div>
             <div class="jumble-box"></div>
         </div>
         <div class="gallery-container">
@@ -39,14 +42,14 @@
     </main>
 
 
- 
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" alt="lib/jquery/jquery.js"></script>
-    <script src="js/util-service.js" ></script>
-    <script src="js/storage-service.js" ></script>
-    <script src="js/meme-storage.js" ></script>
-    <script src="js/meme-service.js" ></script>
-    <script src="js/meme-main.js" ></script>
-    
+    <script src="js/util-service.js"></script>
+    <script src="js/storage-service.js"></script>
+    <script src="js/meme-storage.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/meme-main.js"></script>
+
 </body>
 
 </html>
