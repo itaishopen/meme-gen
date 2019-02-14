@@ -66,14 +66,8 @@ function onAddRow(rowId = rowNum++) {
         <button class="down down${rowId}" onclick="onTxtMove(this)">V</button>
         <button class="right right${rowId}" onclick="onTxtMove(this)">></button>
         <button class="left left${rowId}" onclick="onTxtMove(this)"><</button>
-        <select class="size size${rowId}" onchange="onChangeSize(this)">
-            <option>30</option>
-            <option>40</option>
-            <option>50</option>
-            <option selected>60</option>
-            <option>70</option>
-            <option>80</option>
-        </select>
+        <button class="larger larger${rowId}" onclick="onChangeSize(this)">+</button>
+        <button class="smaller smaller${rowId}" onclick="onChangeSize(this)">-</button>
         <button class="delete delete${rowId}" onclick="onDeleteRow(this)">delete</button>
     </div>
     `;
@@ -88,14 +82,8 @@ function renderTools(row) {
     <button class="down down${rowId}" onclick="onTxtMove(this)">V</button>
     <button class="right right${rowId}" onclick="onTxtMove(this)">></button>
     <button class="left left${rowId}" onclick="onTxtMove(this)"><</button>
-    <select class="size size${rowId}" onchange="onChangeSize(this)">
-        <option>30</option>
-        <option>40</option>
-        <option>50</option>
-        <option selected>60</option>
-        <option>70</option>
-        <option>80</option>
-    </select>
+    <button class="larger larger${rowId}" onclick="onChangeSize(this)">+</button>
+    <button class="smaller smaller${rowId}" onclick="onChangeSize(this)">-</button>
 </div>
 `;
 }
@@ -106,11 +94,23 @@ function onDeleteRow(elDeleteBtn) {
     renderText();
 }
 
-
-function onChangeSize(elSelect) {
-    var rowIdx = elSelect.classList[1].slice(-1);
+function onChangeSize(elBtnSize) {
+    console.log('here');
+    var rowIdx = elBtnSize.classList[1].slice(-1);
     var row = findRowByIdx(rowIdx);
-    row.size = elSelect.value;
+    
+    switch (elBtnSize.classList[0]) {
+        case 'larger':
+            if (row.size > 120) return;
+            row.size = row.size + 5;
+            break;
+        case 'smaller':
+            if (row.size < 6) return;
+            row.size -= 5;
+            break;
+        default:
+            break;
+    }
     renderText();
 }
 
@@ -169,9 +169,7 @@ function canvasClicked(ev) {
 function openModal(ev, row) {
     var modal = document.querySelector('.modal');
     modal.classList.add('d-block');
-    
     document.querySelector('.modal').innerHTML = renderTools(row);
-
     modal.style.top = ev.clientY + 'px';
     modal.style.left = ev.clientX + 'px';
 }
