@@ -1,14 +1,14 @@
 var gCanvas, gCtx, gCurrentMeme;
 
-function drawCanvase(meme) {
-    console.log(meme)
-    gCurrentMeme = meme;
-    gCanvas = $('#my-canvas');
+function drawCanvase() {
+    gCurrentMeme = loadFromLocalStorage(MEME_KEY);
+    if (!gCurrentMeme) return;
+    gCanvas = document.getElementById('my-canvas');
     createCanvaseSize()
     gCtx = gCanvas.getContext('2d');
     var img = new Image;
     img.onload = function () {
-        gCtx.drawImage(img, 0, 0);
+        gCtx.drawImage(img, 0, 0, gCurrentMeme.width, gCurrentMeme.height , 0, 0, gCanvas.width, gCanvas.height);
     }
     img.src = gCurrentMeme.url;
 }
@@ -18,6 +18,7 @@ function createCanvaseSize() {
         gCanvas.width = $('body').width();
         gCanvas.height = (($('body').width() * gCurrentMeme.height) / gCurrentMeme.width);
     } else if (gCurrentMeme.width > 500) {
+        console.log(gCurrentMeme.width);
         gCanvas.width = 500;
         gCanvas.height = ((500 * gCurrentMeme.height) / gCurrentMeme.width);
     } else {

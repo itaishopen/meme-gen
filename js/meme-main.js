@@ -1,5 +1,6 @@
 'use strict'
 var gCurrentMemes;
+const MEME_KEY = 'meme';
 
 function init() {
     gCurrentMemes = createMemes();
@@ -42,8 +43,8 @@ function onPageChange(num) {
 function onMemeChose(memeId) {
     var meme = findMemeById(memeId);
     meme.rate += 1;
-    console.log(meme)
-    window.location.replace('meme-generator.html');
-
-    drawCanvase(meme);
+    saveToLocalStorage(MEME_KEY, meme)    
+    saveToLocalStorage(MEMES_KEY, gCurrentMemes)
+    window.location.assign('meme-generator.html');
+    drawCanvase();
 }
