@@ -1,6 +1,7 @@
 'use strict'
 var gCurrentMemes;
 const MEME_KEY = 'meme';
+var rowNum = 3;
 
 function init() {
     gCurrentMemes = createMemes();
@@ -55,6 +56,13 @@ function onMemeChose(memeId) {
     drawCanvase();
 }
 
-function onInsertTxt(elInputTxt) {
-    var txt = elInputSearch.value;
+function onAddRow() {
+    var strHTML = `<div row-item row-item${rowNum}>
+        <input class="txt ${rowNum}" onkeyup="onInsertTxt(this)">
+        <input class="color color${rowNum}" type="color">
+    </div>
+    `;
+    document.querySelector('.text-container').innerHTML += strHTML;
+    handleAddLine();
 }
+

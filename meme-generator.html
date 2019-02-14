@@ -24,7 +24,17 @@
     <div class="meme-container flex">
         <canvas id="my-canvas"></canvas>
         <div class="control">
-            <input class="text" onkeyup="onInsertTxt(this)">
+            <div class="text-container">
+                <div class="row-item row-item1">
+                    <input class="txt txt1" onkeyup="onInsertTxt(this)">
+                    <input class="color color1" type="color">
+                </div>
+                <div class="row-item row-item2">
+                    <input class="txt txt2" onkeyup="onInsertTxt(this)">
+                    <input class="color color2" type="color">
+                </div>
+            </div>
+            <button onclick="onAddRow()">Add</button>
         </div>
     </div>
 
