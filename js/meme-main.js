@@ -1,7 +1,7 @@
 'use strict'
 var gCurrentMemes;
 const MEME_KEY = 'meme';
-var rowNum = 3;
+
 
 function init() {
     gCurrentMemes = createMemes();
@@ -54,14 +54,3 @@ function onMemeChose(memeId) {
     window.location.assign('meme-generator.html');
     drawCanvase();
 }
-
-function onAddRow() {
-    var strHTML = `<div row-item row-item${rowNum}>
-        <input class="txt ${rowNum}" onkeyup="onInsertTxt(this)">
-        <input class="color color${rowNum}" type="color">
-    </div>
-    `;
-    document.querySelector('.text-container').innerHTML += strHTML;
-    handleAddLine();
-}
-

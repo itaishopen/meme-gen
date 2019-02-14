@@ -33,12 +33,12 @@ function findMemeById(memeId) {
 
 function arrangeMemes() {
     if (gSearchBy === 'all') return getMemes().sort(sortRating);
-    var memes = getMemes().filter(function(meme) {
+    var memes = getMemes().filter(function (meme) {
         var res = meme.tags.some((tag) => {
             return (!tag.indexOf(gSearchBy));
         });
         return res;
-    });    
+    });
     return memes.sort(sortRating);
 }
 
@@ -48,7 +48,7 @@ function memesToShow(pageId) {
     return memes.slice(fromIdx, fromIdx + memesInPage)
 }
 
-function sortRating(a,b) {
+function sortRating(a, b) {
     return b.rate - a.rate;
 }
 
@@ -69,5 +69,46 @@ function getNumberOfPages(memes) {
     return Math.ceil(memes.length / memesInPage);
 }
 
+function createRow(num) {
+    switch (num) {
+        case 0:
+            return {
+                line: '',
+                size: 60,
+                align: 'left',
+                color: 'white',
+                isShadow: false,
+                x: gCanvas.width / 2,
+                y: 50,
+                font: 'Calibri',
+            }
+        case 1:
+            return {
+                line: '',
+                size: 60,
+                align: 'left',
+                color: 'white',
+                isShadow: false,
+                x: gCanvas.width / 2,
+                y: gCanvas.height - 50,
+                font: 'Calibri',
+            }
+        default:
+            return {
+                line: '',
+                size: 20,
+                align: 'left',
+                color: 'white',
+                isShadow: false,
+                x: gCanvas.width / 2,
+                y: 50 + (50 * num-2),
+                font: 'Calibri',
+            }
+    }
 
+}
+
+    }
+    
+}
 
