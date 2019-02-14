@@ -8,14 +8,26 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/memegenerator.css">
+    <link rel="stylesheet" href="css/meme-generator.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Create A Meme</title>
 </head>
 
 <body>
+    <header class="main-header flex">
+        <nav class="main-nav flex space-evenly">
+            <a href="#" class="flex align-center space-center">About Us</a>
+            <a href="#" class="flex align-center space-center">Home</a>
+            <a href="#" class="flex align-center space-center">Contact Us</a>
+        </nav>
+    </header>
+    <div class="meme-container flex">
+        <canvas id="my-canvas"></canvas>
+        <div class="control">
 
-    <canvas id="my-canvas"></canvas>
+        </div>
+    </div>
+
 
     <script src="js/util-service.js"></script>
     <script src="js/storage-service.js"></script>

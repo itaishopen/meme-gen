@@ -3,3 +3,11 @@
     font-family: impact;
     src: url('fonts/impact/impact.ttf');
 }
+
+.meme-container {
+    flex-direction: column;
+}
+
+.control {
+    background-color: black;
+}
