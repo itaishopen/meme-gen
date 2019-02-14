@@ -1,7 +1,6 @@
 'use strict'
 var gCurrentMemes;
 const MEME_KEY = 'meme';
-var rowNum = 3;
 
 function init() {
     gCurrentMemes = createMemes();
