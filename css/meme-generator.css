@@ -4,9 +4,9 @@
     src: url('fonts/impact/impact.ttf');
 }
 
-.meme-container {
+/* .meme-container {
     flex-direction: column;
-}
+} */
 
 .control {
     background-color: black;

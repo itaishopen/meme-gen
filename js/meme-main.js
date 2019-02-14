@@ -43,13 +43,10 @@ function onPageChange(num) {
 function onMemeChose(memeId) {
     var meme = findMemeById(memeId);
     meme.rate += 1;
-    Window.location('meme-generator.html')
-    drawCanvase(meme);
     saveToLocalStorage(MEME_KEY, meme)    
     saveToLocalStorage(MEMES_KEY, gCurrentMemes)
     window.location.assign('meme-generator.html');
     drawCanvase();
-
 }
 
 function onSearchImg(elInputSearch) {

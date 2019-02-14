@@ -15,8 +15,8 @@ function drawCanvase() {
 
 function createCanvaseSize() {
     if ($('body').width() < 700) {
-        gCanvas.width = $('body').width();
-        gCanvas.height = (($('body').width() * gCurrentMeme.height) / gCurrentMeme.width);
+        gCanvas.width = $('meme-container').width();
+        gCanvas.height = (($('meme-container').width() * gCurrentMeme.height) / gCurrentMeme.width);
     } else if (gCurrentMeme.width > 500) {
         console.log(gCurrentMeme.width);
         gCanvas.width = 500;
