@@ -11,3 +11,7 @@
 .control {
     background-color: black;
 }
+
+#my-canvas {
+    border: 1px solid blue;
+}

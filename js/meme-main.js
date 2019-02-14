@@ -1,5 +1,6 @@
 'use strict'
 var gCurrentMemes;
+const MEME_KEY = 'meme';
 
 function init() {
     gCurrentMemes = createMemes();
@@ -42,6 +43,7 @@ function onPageChange(num) {
 function onMemeChose(memeId) {
     var meme = findMemeById(memeId);
     meme.rate += 1;
+<<<<<<< HEAD
     Window.location('meme-generator.html')
     drawCanvase(meme);
 }
@@ -50,4 +52,10 @@ function onSearchImg(elInputSearch) {
     setSearchPer(elInputSearch.value.trim());
     setCurrPageId(0);
     renderGallery(0);
+=======
+    saveToLocalStorage(MEME_KEY, meme)    
+    saveToLocalStorage(MEMES_KEY, gCurrentMemes)
+    window.location.assign('meme-generator.html');
+    drawCanvase();
+>>>>>>> 29d4ee5a79bf686e4d3dc90a471ad47f347833f3
 }

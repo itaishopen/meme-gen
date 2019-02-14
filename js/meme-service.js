@@ -1,15 +1,15 @@
 'use strict'
 var gSearchBy = 'all';
 var gCurrentPageId = 0;
-const MEME_KEY = 'my-memes';
+const MEMES_KEY = 'my-memes';
 const memesInPage = 15;
 var gMeme;
 
 function createMemes() {
-    var memes = loadFromLocalStorage(MEME_KEY);
+    var memes = loadFromLocalStorage(MEMES_KEY);
     if (!memes || memes.length === 0) {
         memes = getMemes();
-        saveToLocalStorage(MEME_KEY, memes)
+        saveToLocalStorage(MEMES_KEY, memes)
     }
     return memes;
 }
