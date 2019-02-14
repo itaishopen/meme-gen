@@ -2,7 +2,7 @@
 var gSearchBy = 'all';
 var gCurrentPage = 0;
 const MEME_KEY = 'my-memes';
-const memesInPage = 12;
+const memesInPage = 15;
 
 function createMemes() {
     var memes = loadFromLocalStorage(MEME_KEY);
@@ -39,9 +39,9 @@ function arrangeMemes() {
     return memes.sort(sortRating);
 }
 
-function memesToShow() {
+function memesToShow(pageId) {
     var memes = arrangeMemes();
-    var fromIdx = gCurrentPage * memesInPage;
+    var fromIdx = pageId * memesInPage;
     return memes.slice(fromIdx, fromIdx + memesInPage)
 }
 
@@ -53,7 +53,16 @@ function setSearchPer(searchBy) {
     gSearchBy = searchBy;
 }
 
-function numberOfPages(memes) {
+function getCurrPage() {
+    return gCurrentPage;
+}
+
+function setCurrPage(pageId) {
+    gCurrentPage = pageId;
+    renderGallery(gCurrentPage);
+}
+
+function getNumberOfPages(memes) {
     return Math.ceil(memes / memesInPage)
 }
 
