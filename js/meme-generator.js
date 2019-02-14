@@ -20,7 +20,7 @@ var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
         font: 'Calibri',
     },
 ]};
-var rowNum = 3;
+var rowNum = 0;
 
 function drawCanvase() {
     gCurrentMeme.meme = loadFromLocalStorage(MEME_KEY);
@@ -74,7 +74,7 @@ function handleDownload() {
 }
 
 function onAddRow() {
-    var row = createRow();
+    var row = createRow(rowNum++);
     gCurrentMeme.rows.push(row);
     var strHTML = `<div row-item row-item${rowNum}>
         <input class="txt ${rowNum}" onkeyup="onInsertTxt(this)">
