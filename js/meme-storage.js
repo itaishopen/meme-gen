@@ -62,7 +62,7 @@ const gMemes = [
     { id: '135678846', name: 'Who Killed Hannibal', url: 'https://i.imgflip.com/28s2gu.jpg', width: 1280, height: 1440, rate: 0, tags: ['who killed hannibal', 'tv', 'object labeling', 'eric andre show', 'hannibal burress'] },
     { id: '3218037', name: "This Is Where I'd Put My Trophy If IHad One", url: 'https://i.imgflip.com/1wz1x.jpg', width: 300, height: 418, rate: 0, tags: ["this is where i'd put my trophy if i had one", 'tv', 'angry', 'if i had one', 'fairly oddparents', 'trophy'] },
     { id: '99683372', name: 'Sleeping Shaq', url: 'https://i.imgflip.com/1nck6k.jpg', width: 640, height: 631, rate: 0, tags: ['sleeping shaq', 'shaq', 'sleeping', "shaquille o'neal", 'ascended', 'real shit', 'woke'] },
-    { id: '61580', name: 'TooDamn High', url: 'https://i.imgflip.com/1bik.jpg', width: 420, height: 316, rate: 0, tags: ['toodamn high'] },
+    { id: '61580', name: 'TooDamn High', url: 'https://i.imgflip.com/1bik.jpg', width: 420, height: 316, rate: 0, tags: ['toodamn high', 'too damn high', ] },
     { id: '460541', name: 'Jack Sparrow Being Chased', url: 'https://i.imgflip.com/9vct.jpg', width: 500, height: 375, rate: 0, tags: [] },
     { id: '371382', name: 'Simba Shadowy Place', url: 'https://i.imgflip.com/7yk6.jpg', width: 363, height: 720, rate: 0, tags: [] },
     { id: '6531067', name: 'See Nobody Cares', url: 'https://i.imgflip.com/3vzej.jpg', width: 620, height: 676, rate: 0, tags: [] },
