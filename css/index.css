@@ -1,11 +1,36 @@
 /* section */
+
+header {
+    position: sticky;
+}
+
 .welcome {
+    background: url('../img/cover.jpg') no-repeat center;
+    background-size: auto 100%;
     background-color: gray;
     height: calc(100vh - 100px);
+    font-size: 30px;
+}
+
+path {
+    fill: transparent;
+}
+
+text {
+    fill: #FF9800;
+}
+
+.top-container {
+    justify-content: center;
+    align-content: center;
 }
 
 .search-box {
     height: 100px;
+}
+
+.search-input {
+    margin-top: 25%;
 }
 
 .gallery-container {
@@ -21,6 +46,7 @@
     width: 200px;
     height: 200px;
     border: 1px solid gray;
+    cursor: pointer;
 }
 
 .pagination:before {
@@ -30,6 +56,7 @@
 
 .pagination {
     display: inline-block;
+    justify-content: center;
 }
 
 .pagination a {

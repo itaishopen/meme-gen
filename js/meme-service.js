@@ -77,7 +77,7 @@ function createRow(num) {
                 line: '',
                 size: 60,
                 align: 'center',
-                color: 'white',
+                color: '#ffffff',
                 stroke: 'black',
                 x: gCanvas.width / 2,
                 y: 60,
@@ -90,7 +90,7 @@ function createRow(num) {
                 line: '',
                 size: 60,
                 align: 'center',
-                color: 'white',
+                color: '#ffffff',
                 stroke: 'black',
                 x: gCanvas.width / 2,
                 y: gCanvas.height - 20,
@@ -98,17 +98,32 @@ function createRow(num) {
                 font: 'impact',
             }
         default:
+        if ((60 + (60 * (num - 1))) < gCanvas.height) {
             return {
                 id: `${num}`,
                 line: '',
                 size: 60,
                 align: 'center',
-                color: 'white',
+                color: '#ffffff',
                 stroke: 'black',
                 x: gCanvas.width / 2,
                 y: 60 + (60 * (num - 1)),
                 isShadow: false,
                 font: 'impact',
             }
+        } else {
+            return {
+                id: `${num}`,
+                line: '',
+                size: 60,
+                align: 'center',
+                color: '#ffffff',
+                stroke: 'black',
+                x: gCanvas.width / 2,
+                y: gCanvas.height / 2,
+                isShadow: false,
+                font: 'impact',
+            }
+        }
     }
 }

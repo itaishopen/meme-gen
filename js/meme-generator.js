@@ -56,19 +56,53 @@ function handleDownload() {
     $('#download').attr('href', img);
 }
 
+function handlePost(elForm, ev) {
+    ev.preventDefault();
+    $('#imgData').val(gCanvas.toDataURL("image/jpeg"));
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        console.log('uploadedImgUrl', uploadedImgUrl);
+        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        $('.share-container').html = `
+        <a class="w-inline-block social-share-btn fb" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+        </a>`
+    }
+    doUploadImg(elForm, onSuccess);
+}
+
+function doUploadImg(elForm, onSuccess) {
+    var formData = new FormData(elForm);
+
+    fetch('http://ca-upload.com/here/upload.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(function (response) {
+            return response.text()
+        })
+        .then(onSuccess)
+        .catch(function (error) {
+            console.error(error)
+        })
+}
+
 function onAddRow(rowId = rowNum++) {
     var row = createRow(rowId);
     gCurrentMeme.rows.push(row);
     var strHTML = `<div class="row-item row-item${rowId}">
         <input type="text" class="txt txt${rowId}" value="" onkeyup="onInsertTxt(this)">
-        <input class="color color${rowId}" type="color" onchange="onColorChanged(this)">
-        <button class="up up${rowId}" onclick="onTxtMove(this)">^</button>
-        <button class="down down${rowId}" onclick="onTxtMove(this)">V</button>
-        <button class="right right${rowId}" onclick="onTxtMove(this)">></button>
-        <button class="left left${rowId}" onclick="onTxtMove(this)"><</button>
-        <button class="larger larger${rowId}" onclick="onChangeSize(this)">+</button>
-        <button class="smaller smaller${rowId}" onclick="onChangeSize(this)">-</button>
-        <button class="delete delete${rowId}" onclick="onDeleteRow(this)">delete</button>
+        <input class="color color${rowId}" type="color" value="${row.color}" onchange="onColorChanged(this)">
+        <button class="up up${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-up"></i></button>
+        <button class="down down${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-down"></i></button>
+        <button class="right right${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-right"></i></button>
+        <button class="left left${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-left"></i></button>
+        <button class="larger larger${rowId}" onclick="onChangeSize(this)"><i class="fas fa-plus"></i></button>
+        <button class="smaller smaller${rowId}" onclick="onChangeSize(this)"><i class="fas fa-minus"></i></button>
+        <button class="align-left align-left${rowId}" onclick="onChangeAlign(this, 'right')"><i class="fas fa-align-left"></i></button>
+        <button class="align-center align-center${rowId}" onclick="onChangeAlign(this, 'center')"><i class="fas fa-align-justify"></i></button>
+        <button class="align-right align-right${rowId}" onclick="onChangeAlign(this, 'left')"><i class="fas fa-align-right"></i></button>
+        <button class="delete delete${rowId}" onclick="onDeleteRow(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
     </div>
     `;
     $('.text-container').append(strHTML);
@@ -77,27 +111,38 @@ function onAddRow(rowId = rowNum++) {
 function renderTools(row) {
     var rowId = row.id;
     return `<div class="row-item row-item${rowId}">
-    <input class="color color${rowId}" type="color" onchange="onColorChanged(this)">
-    <button class="up up${rowId}" onclick="onTxtMove(this)">^</button>
-    <button class="down down${rowId}" onclick="onTxtMove(this)">V</button>
-    <button class="right right${rowId}" onclick="onTxtMove(this)">></button>
-    <button class="left left${rowId}" onclick="onTxtMove(this)"><</button>
-    <button class="larger larger${rowId}" onclick="onChangeSize(this)">+</button>
-    <button class="smaller smaller${rowId}" onclick="onChangeSize(this)">-</button>
+    <input class="color color${rowId}" type="color" value="${row.color}" onchange="onColorChanged(this)">
+        <button class="up up${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-up"></i></button>
+        <button class="down down${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-down"></i></button>
+        <button class="right right${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-right"></i></button>
+        <button class="left left${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-left"></i></button>
+        <button class="larger larger${rowId}" onclick="onChangeSize(this)"><i class="fas fa-plus"></i></button>
+        <button class="smaller smaller${rowId}" onclick="onChangeSize(this)"><i class="fas fa-minus"></i></button>
+        <button class="align-left align-left${rowId}" onclick="onChangeAlign(this, 'right')"><i class="fas fa-align-left"></i></button>
+        <button class="align-center align-center${rowId}" onclick="onChangeAlign(this, 'center')"><i class="fas fa-align-justify"></i></button>
+        <button class="align-right align-right${rowId}" onclick="onChangeAlign(this, 'left')"><i class="fas fa-align-right"></i></button>
+        <button class="delete delete${rowId}" onclick="onDeleteRow(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
 </div>
 `;
 }
 
 function onDeleteRow(elDeleteBtn) {
-    var rowIdx = elDeleteBtn.classList[1].slice(-1);
+    var rowIdx = elDeleteBtn.classList[1].replace( /^\D+/g, '');
     var rowId = findRowId(rowIdx)
     gCurrentMeme.rows.splice(rowId, 1);
     $(`.row-item${rowIdx}`).remove();
     renderText();
 }
 
+function onChangeAlign(elAlign, direction) {
+    var rowIdx = elAlign.classList[1].replace( /^\D+/g, '');
+    var row = findRowByIdx(rowIdx);
+    row.align = direction;
+    renderText();
+}
+
 function onChangeSize(elBtnSize) {
-    var rowIdx = elBtnSize.classList[1].slice(-1);
+    var rowIdx = elBtnSize.classList[1].replace( /^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     
     switch (elBtnSize.classList[0]) {
@@ -139,7 +184,7 @@ function onTxtMove(elBtnMove) {
 }
 
 function onInsertTxt(elInputText) {
-    var rowIdx = elInputText.classList[1].slice(-1)
+    var rowIdx = elInputText.classList[1].replace( /^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.line = elInputText.value;
     $(`.row-item${rowIdx} input[type="text"]`).val(elInputText.value);
@@ -147,7 +192,7 @@ function onInsertTxt(elInputText) {
 }
 
 function onColorChanged(elInputColor) {
-    var rowIdx = elInputColor.classList[1].slice(-1);
+    var rowIdx = elInputColor.classList[1].replace( /^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.color = elInputColor.value;
     renderText();

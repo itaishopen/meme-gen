@@ -28,7 +28,13 @@
             </div>
             <div class="modal">
             </div>
-            <button onclick="onAddRow()">Add</button>
+            <button onclick="onAddRow()"><i class="fas fa-plus-square"></i></button>
+            <a id="download" data-tip="download canvas" download="best-canvas-ever-by-niv-and-itai.png"><button
+                    type="button" onclick="handleDownload()"><i class="fas fa-file-download fa-lg"></i></button></a>
+            <form action="" method="POST" enctype="multipart/form-data" onsubmit="handlePost(this, event)">
+                <input name="img" id="imgData" type="hidden" />
+                <button id="post" type="submit"><i class="fab fa-facebook-f fa-lg"></i></button>
+            </form>
         </div>
     </div>
 
