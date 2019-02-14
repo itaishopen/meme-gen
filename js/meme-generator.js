@@ -1,6 +1,7 @@
 var gCanvas, gCtx, gCurrentMeme;
 
 function drawCanvase(meme) {
+    console.log(meme)
     gCurrentMeme = meme;
     gCanvas = $('#my-canvas');
     createCanvaseSize()

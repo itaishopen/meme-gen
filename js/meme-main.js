@@ -42,6 +42,8 @@ function onPageChange(num) {
 function onMemeChose(memeId) {
     var meme = findMemeById(memeId);
     meme.rate += 1;
-    Window.location('meme-generator.html')
+    console.log(meme)
+    window.location.replace('meme-generator.html');
+
     drawCanvase(meme);
 }
