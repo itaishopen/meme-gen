@@ -4,9 +4,8 @@ const MEME_KEY = 'meme';
 
 function init() {
     gCurrentMemes = createMemes();
-    var tags = combineTags(gCurrentMemes);
-    var sorted = mostRepetedTags(tags);
-    console.log(sorted)
+    let tags = combineTags(gCurrentMemes);
+    let sorted = mostRepeatedTags(tags);
     let pageIdx = getCurrPageId();
     renderGallery(pageIdx);
 }
@@ -63,7 +62,7 @@ function combineTags(memes) {
     }, []);
 }
 
-function mostRepetedTags(tags) {
+function mostRepeatedTags(tags) {
     var ref = tags.reduce(function(acc, tag) {
         if (!acc[tag]) acc[tag] = 0;
         acc[tag]++;
