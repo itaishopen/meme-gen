@@ -22,11 +22,13 @@
         </nav>
     </header>
     <div class="meme-container flex">
-        <canvas id="my-canvas"></canvas>
+        <canvas id="my-canvas" onclick="canvasClicked(event)"></canvas>
         <div class="control">
             <div class="text-container">
             </div>
-            <button onclick="onAddRow()">Add</button>
+            <div class="modal">
+            </div>
+            <button onclick="onAddRow()">Add</button>           
         </div>
     </div>
 

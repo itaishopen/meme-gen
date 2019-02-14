@@ -1,9 +1,3 @@
-/* fonts */
-@font-face {
-    font-family: impact;
-    src: url('fonts/impact/impact.ttf');
-}
-
 .control {
     width: 100%;
     border: 1px solid black;
@@ -11,4 +5,18 @@
 
 #my-canvas {
     border: 1px solid blue;
+}
+
+
+.modal {
+    display: none;
+    border: 1px solid #000000ab;
+    background-color: #ffffffb3;
+    width: fit-content;
+    padding: 20px;
+    position: absolute;
+}
+
+.d-block {
+    display: block;
 }

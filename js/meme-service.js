@@ -78,10 +78,11 @@ function createRow(num) {
                 size: 60,
                 align: 'center',
                 color: 'white',
+                stroke: 'black',
                 x: gCanvas.width / 2,
                 y: 50,
                 isShadow: false,
-                font: 'eurofbold',
+                font: 'impact',
             }
         case 1:
             return {
@@ -90,10 +91,11 @@ function createRow(num) {
                 size: 60,
                 align: 'center',
                 color: 'white',
+                stroke: 'black',
                 x: gCanvas.width / 2,
                 y: gCanvas.height - 50,
                 isShadow: false,
-                font: 'eurofbold',
+                font: 'impact',
             }
         default:
             return {
@@ -102,10 +104,11 @@ function createRow(num) {
                 size: 60,
                 align: 'center',
                 color: 'white',
+                stroke: 'black',
                 x: gCanvas.width / 2,
                 y: 50 + (50 * (num - 1)),
                 isShadow: false,
-                font: 'eurofbold',
+                font: 'impact',
             }
     }
 }
