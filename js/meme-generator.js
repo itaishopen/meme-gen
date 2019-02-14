@@ -60,15 +60,7 @@ function renderText() {
         gCtx.shadowColor = "black";
         (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
         gCtx.fillStyle = row.color;
-        if (row.align === 'left') {
-            gCtx.textAlign = 'right';
-         }
-        else if (row.align === 'right') {
-            gCtx.textAlign = 'left';
-        }
-        else {
-            gCtx.textAlign = 'center';
-        }
+        gCtx.textAlign = row.align;
         textLength = (row.line.length * row.size) / 2;
         gCtx.fillText(row.line, row.x, row.y);
     })
