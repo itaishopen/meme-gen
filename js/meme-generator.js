@@ -2,8 +2,6 @@ var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
     {
         line: 'world',
         size: 60,
-        width: 210,
-        height: 50,
         align: 'center',
         color: 'black',
         x: 250,
@@ -14,16 +12,13 @@ var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
     {
         line: 'hello',
         size: 60,
-        height: 400,
-        width: 210,
         align: 'center',
         color: 'black',
         x: 250,
-        y: 200,
-        isShadow: true,
+        y: 333,
+        isShadow: false,
         font: 'Calibri',
     },
-
 ]};
 
 function drawCanvase() {
@@ -77,3 +72,16 @@ function handleDownload() {
    $('#download').attr('href', img);
 }
 
+function handleAddLine() {
+    var row = {
+        line: '',
+        size: 20,
+        align: 'left',
+        color: 'black',
+        isShadow: false,
+        x: 250,
+        y: 400,
+        font: 'Calibri',
+    }
+    gCurrentMeme.rows.push(row);
+}

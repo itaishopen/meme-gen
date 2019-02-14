@@ -3,7 +3,6 @@ var gSearchBy = 'all';
 var gCurrentPageId = 0;
 const MEMES_KEY = 'my-memes';
 const memesInPage = 15;
-var gMeme;
 
 function createMemes() {
     var memes = loadFromLocalStorage(MEMES_KEY);
@@ -34,7 +33,6 @@ function findMemeById(memeId) {
 
 function arrangeMemes() {
     if (gSearchBy === 'all') return getMemes().sort(sortRating);
-
     var memes = getMemes().filter(function(meme) {
         var res = meme.tags.some((tag) => {
             return (!tag.indexOf(gSearchBy));

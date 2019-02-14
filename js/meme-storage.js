@@ -107,5 +107,5 @@ function getMemes() {
 
 function addMeme(meme) {
     gMemes.push(meme);
-    saveToLocalStorage(MEME_KEY, gMemes);
+    saveToLocalStorage(MEMES_KEY, gMemes);
 }
