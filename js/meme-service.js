@@ -73,6 +73,7 @@ function createRow(num) {
     switch (num) {
         case 0:
             return {
+                id: `${num}`,
                 line: '',
                 size: 60,
                 align: 'center',
@@ -84,6 +85,7 @@ function createRow(num) {
             }
         case 1:
             return {
+                id: `${num}`,
                 line: '',
                 size: 60,
                 align: 'center',
@@ -95,6 +97,7 @@ function createRow(num) {
             }
         default:
             return {
+                id: `${num}`,
                 line: '',
                 size: 60,
                 align: 'center',
@@ -106,4 +109,5 @@ function createRow(num) {
             }
     }
 }
+
 
