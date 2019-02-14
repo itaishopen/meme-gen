@@ -53,3 +53,7 @@ function setSearchPer(searchBy) {
     gSearchBy = searchBy;
 }
 
+function numberOfPages(memes) {
+    return Math.ceil(memes / memesInPage)
+}
+
