@@ -26,7 +26,7 @@ function renderGallery(pageId) {
         rightArrow = '&laquo;';
     }
     let pageNumbersStr = `<a onclick="onPageChange(-1)">${leftArrow}</a>`;
-    for (let j = 0; j < getNumberOfPages(gCurrentMemes); j++) {
+    for (let j = 0; j < getNumberOfPages(arrangeMemes()); j++) {
         pageNumbersStr += `<a id="page-${j + 1}" onclick="setCurrPageId(${j})">${j + 1}</a>`;
     }
     pageNumbersStr += `<a onclick="onPageChange(1)">${rightArrow}</a>`;
@@ -44,7 +44,6 @@ function onPageChange(num) {
 function onSearchImg(elInputSearch) {
     setSearchPer(elInputSearch.value.trim());
     setCurrPageId(0);
-    renderGallery(0);
 }
 
 function onMemeChose(memeId) {
