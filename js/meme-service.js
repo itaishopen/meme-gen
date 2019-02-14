@@ -108,7 +108,3 @@ function createRow(num) {
 
 }
 
-    }
-    
-}
-
