@@ -4,8 +4,8 @@ const MEME_KEY = 'meme';
 
 function init() {
     gCurrentMemes = createMemes();
-    let tags = combineTags(gCurrentMemes);
-    let sorted = mostRepeatedTags(tags);
+    var tags = combineTags(gCurrentMemes);
+    var sorted = mostRepeatedTags(tags);
     let pageIdx = getCurrPageId();
     renderGallery(pageIdx);
 }

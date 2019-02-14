@@ -74,7 +74,6 @@ function onAddRow(rowId = rowNum++) {
     $('.text-container').append(strHTML);
 }
 
-
 function renderTools(row) {
     var rowId = row.id;
     return `<div class="row-item row-item${rowId}">
@@ -98,7 +97,6 @@ function onDeleteRow(elDeleteBtn) {
 }
 
 function onChangeSize(elBtnSize) {
-    console.log('here');
     var rowIdx = elBtnSize.classList[1].slice(-1);
     var row = findRowByIdx(rowIdx);
     
