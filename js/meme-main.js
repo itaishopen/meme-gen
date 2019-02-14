@@ -24,16 +24,24 @@ function renderGallery(pageId) {
         rightArrow = '&laquo;';
     }
     let pageNumbersStr = `<a onclick="onPageChange(-1)">${leftArrow}</a>`;
-    for (let j = 0; j < getNumberOfPages(); j++) {
-        pageNumbersStr += `<a id="page-${j + 1}" onclick="selectPage(${j})">${j + 1}</a>`;
+    for (let j = 0; j < getNumberOfPages(gCurrentMemes); j++) {
+        pageNumbersStr += `<a id="page-${j + 1}" onclick="setCurrPageId(${j})">${j + 1}</a>`;
     }
     pageNumbersStr += `<a onclick="onPageChange(1)">${rightArrow}</a>`;
     $('.pagination').html(pageNumbersStr);
+    $(`#page-${+pageId + 1}`).addClass('active');
 }
 
 function onPageChange(num) {
     let pageId = getCurrPageId() + num;
-    if (pageId < getNumberOfPages() && pageId >= 0) {
+    if (pageId < getNumberOfPages(gCurrentMemes) && pageId >= 0) {
         setCurrPageId(pageId);
     }
+}
+
+function onMemeChose(memeId) {
+    var meme = findMemeById(memeId);
+    meme.rate += 1;
+    Window.location('meme-generator.html')
+    drawCanvase(meme);
 }
