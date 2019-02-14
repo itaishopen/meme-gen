@@ -97,7 +97,6 @@ function onDeleteRow(elDeleteBtn) {
 }
 
 function onChangeSize(elBtnSize) {
-    console.log('here');
     var rowIdx = elBtnSize.classList[1].slice(-1);
     var row = findRowByIdx(rowIdx);
     

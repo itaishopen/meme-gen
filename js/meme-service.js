@@ -80,7 +80,7 @@ function createRow(num) {
                 color: 'white',
                 stroke: 'black',
                 x: gCanvas.width / 2,
-                y: 50,
+                y: 60,
                 isShadow: false,
                 font: 'impact',
             }
@@ -93,7 +93,7 @@ function createRow(num) {
                 color: 'white',
                 stroke: 'black',
                 x: gCanvas.width / 2,
-                y: gCanvas.height - 50,
+                y: gCanvas.height - 20,
                 isShadow: false,
                 font: 'impact',
             }
@@ -106,7 +106,7 @@ function createRow(num) {
                 color: 'white',
                 stroke: 'black',
                 x: gCanvas.width / 2,
-                y: 50 + (50 * (num - 1)),
+                y: 60 + (60 * (num - 1)),
                 isShadow: false,
                 font: 'impact',
             }
