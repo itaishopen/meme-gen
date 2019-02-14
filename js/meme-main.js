@@ -45,3 +45,9 @@ function onMemeChose(memeId) {
     Window.location('meme-generator.html')
     drawCanvase(meme);
 }
+
+function onSearchImg(elInputSearch) {
+    setSearchPer(elInputSearch.value.trim());
+    setCurrPageId(0);
+    renderGallery(0);
+}
