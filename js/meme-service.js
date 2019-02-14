@@ -1,6 +1,6 @@
 'use strict'
 var gSearchBy = 'all';
-var gCurrentPage = 0;
+var gCurrentPageId = 0;
 const MEME_KEY = 'my-memes';
 const memesInPage = 15;
 
@@ -53,13 +53,13 @@ function setSearchPer(searchBy) {
     gSearchBy = searchBy;
 }
 
-function getCurrPage() {
-    return gCurrentPage;
+function getCurrPageId() {
+    return gCurrentPageId;
 }
 
-function setCurrPage(pageId) {
-    gCurrentPage = pageId;
-    renderGallery(gCurrentPage);
+function setCurrPageId(pageId) {
+    gCurrentPageId = pageId;
+    renderGallery(gCurrentPageId);
 }
 
 function getNumberOfPages(memes) {

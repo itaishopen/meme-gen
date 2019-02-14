@@ -2,19 +2,21 @@
 var gCurrentMemes;
 
 function init() {
-    gCurrentMemes = createMemes()
+    gCurrentMemes = createMemes();
+    let pageIdx = getCurrPageId();
+    renderGallery(pageIdx);
 }
 
 function renderGallery(pageId) {
     let memes = memesToShow(pageId)
-    let strGallerry = memes.map(function (meme) {
+    let strGallery = memes.map(function (meme) {
         return `
         <div class="card meme meme-item${meme.id}">
             <img class="card-img" src="${meme.url}" onclick="onMemeChose('${meme.id}')">
         </div> 
         `
     });
-    
+    $('.gallery-container').html(strGallery.join(''));
     let leftArrow = '&laquo;';
     let rightArrow = '&raquo;';
     if ($('body').hasClass('rtl')) {
@@ -27,4 +29,11 @@ function renderGallery(pageId) {
     }
     pageNumbersStr += `<a onclick="onPageChange(1)">${rightArrow}</a>`;
     $('.pagination').html(pageNumbersStr);
+}
+
+function onPageChange(num) {
+    let pageId = getCurrPageId() + num;
+    if (pageId < getNumberOfPages() && pageId >= 0) {
+        setCurrPageId(pageId);
+    }
 }
