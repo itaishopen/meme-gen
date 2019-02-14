@@ -4,12 +4,9 @@
     src: url('fonts/impact/impact.ttf');
 }
 
-/* .meme-container {
-    flex-direction: column;
-} */
-
 .control {
-    background-color: black;
+    width: 100%;
+    border: 1px solid black;
 }
 
 #my-canvas {

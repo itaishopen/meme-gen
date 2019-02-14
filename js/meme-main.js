@@ -40,17 +40,21 @@ function onPageChange(num) {
     }
 }
 
+function onSearchImg(elInputSearch) {
+    setSearchPer(elInputSearch.value.trim());
+    setCurrPageId(0);
+    renderGallery(0);
+}
+
 function onMemeChose(memeId) {
     var meme = findMemeById(memeId);
     meme.rate += 1;
-    saveToLocalStorage(MEME_KEY, meme)    
+    saveToLocalStorage(MEME_KEY, meme)
     saveToLocalStorage(MEMES_KEY, gCurrentMemes)
     window.location.assign('meme-generator.html');
     drawCanvase();
 }
 
-function onSearchImg(elInputSearch) {
-    setSearchPer(elInputSearch.value.trim());
-    setCurrPageId(0);
-    renderGallery(0);
+function onInsertTxt(elInputTxt) {
+    var txt = elInputSearch.value;
 }
