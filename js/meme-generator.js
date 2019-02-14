@@ -3,7 +3,7 @@ var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
         line: 'world',
         size: 60,
         align: 'center',
-        color: 'black',
+        color: 'white',
         x: 250,
         y: 50,
         isShadow: false,
@@ -13,13 +13,14 @@ var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
         line: 'hello',
         size: 60,
         align: 'center',
-        color: 'black',
+        color: 'white',
         x: 250,
         y: 333,
         isShadow: false,
         font: 'Calibri',
     },
 ]};
+var rowNum = 0;
 
 function drawCanvase() {
     gCurrentMeme.meme = loadFromLocalStorage(MEME_KEY);
@@ -27,6 +28,8 @@ function drawCanvase() {
     gCanvas = document.getElementById('my-canvas');
     createCanvaseSize()
     gCtx = gCanvas.getContext('2d');
+    onAddRow(rowNum++)
+    onAddRow(rowNum++)
     var img = new Image;
     img.onload = function () {
         gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height , 0, 0, gCanvas.width, gCanvas.height);
@@ -72,22 +75,13 @@ function handleDownload() {
    $('#download').attr('href', img);
 }
 
-function handleAddLine() {
-    var row = {
-        line: '',
-        size: 20,
-        align: 'left',
-        color: 'black',
-        isShadow: false,
-        x: 250,
-        y: 400,
-        font: 'Calibri',
-    }
+function onAddRow(rowId = rowNum++) {
+    var row = createRow(rowNum++);
     gCurrentMeme.rows.push(row);
-}
-
-function onColorChanged(elColorInput) {
-    var classList = elColorInput.classList[1].slice(-1);
-    console.log(classList);
-    
+    var strHTML = `<div row-item row-item${rowId}>
+        <input class="txt ${rowId}" onkeyup="onInsertTxt(this)">
+        <input class="color color${rowId}" type="color">
+    </div>
+    `;
+    document.querySelector('.text-container').innerHTML += strHTML;
 }
