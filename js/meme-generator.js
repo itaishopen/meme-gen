@@ -74,6 +74,7 @@ function onAddRow(rowId = rowNum++) {
     $('.text-container').append(strHTML);
 }
 
+
 function renderTools(row) {
     var rowId = row.id;
     return `<div class="row-item row-item${rowId}">
