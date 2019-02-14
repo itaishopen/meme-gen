@@ -3,3 +3,32 @@
     background-color: gray;
     height: calc(100vh - 100px);
 }
+
+.pagination:before {
+    display: inline-block;
+    filter: blur(5px);
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    background-color: rgba(245, 245, 245, 0.5);
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}

@@ -63,6 +63,6 @@ function setCurrPageId(pageId) {
 }
 
 function getNumberOfPages(memes) {
-    return Math.ceil(memes / memesInPage)
+    return Math.ceil(memes.length / memesInPage);
 }
 
