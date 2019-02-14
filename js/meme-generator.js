@@ -1,25 +1,4 @@
-var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: [
-    {
-        line: 'world',
-        size: 60,
-        align: 'center',
-        color: 'white',
-        x: 250,
-        y: 50,
-        isShadow: false,
-        font: 'eurofbold',
-    },
-    {
-        line: 'hello',
-        size: 60,
-        align: 'center',
-        color: 'white',
-        x: 250,
-        y: 333,
-        isShadow: false,
-        font: 'Calibri',
-    },
-]};
+var gCanvas, gCtx, gCurrentMeme = {meme: null, rows: []};
 var rowNum = 0;
 
 function drawCanvase() {
