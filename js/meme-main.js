@@ -38,3 +38,10 @@ function onPageChange(num) {
         setCurrPageId(pageId);
     }
 }
+
+function onMemeChose(memeId) {
+    var meme = findMemeById(memeId);
+    meme.rate += 1;
+    Window.location('meme-generator.html')
+    drawCanvase(meme);
+}
