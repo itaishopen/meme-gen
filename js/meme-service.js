@@ -69,6 +69,7 @@ function getNumberOfPages(memes) {
     return Math.ceil(memes.length / memesInPage);
 }
 
+
 function createRow(num) {
     switch (num) {
         case 0:
