@@ -1,11 +1,11 @@
-var gCanvas;
-var gCtx;
-var gCurrentMeme = { meme: null, rows: [] };
+var gCanvas, gCtx, gCurrentMeme = { meme: null, rows: [] };
 var rowNum = 0;
-var gCurrRow;
 
 function drawCanvase() {
-    gCurrentMeme.meme = loadFromLocalStorage(MEME_KEY);
+    var memeId = window.location.search
+    if (memeId.substring(0, 1) === '?') memeId = memeId.substring(1);
+    if (!memeId) memeId = '61520';
+    gCurrentMeme.meme = findMemeById(memeId);
     if (!gCurrentMeme.meme) return;
     gCanvas = document.getElementById('my-canvas');
     createCanvaseSize()
@@ -21,14 +21,17 @@ function drawCanvase() {
 
 function createCanvaseSize() {
     if ($('body').width() < 700) {
-        gCanvas.width = $('meme-container').width();
-        gCanvas.height = (($('meme-container').width() * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
-    } else if (gCurrentMeme.meme.width > 500) {
-        gCanvas.width = 500;
-        gCanvas.height = ((500 * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
+        gCanvas.width = $('body').width() - 50;
+        gCanvas.height = ((($('body').width() - 50) * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
     } else {
-        gCanvas.width = gCurrentMeme.meme.width;
-        gCanvas.height = gCurrentMeme.meme.height;
+        
+        if (gCurrentMeme.meme.width > 500) {
+            gCanvas.width = 500;
+            gCanvas.height = ((500 * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
+        } else {
+            gCanvas.width = gCurrentMeme.meme.width;
+            gCanvas.height = gCurrentMeme.meme.height;
+        }
     }
 }
 
@@ -50,44 +53,45 @@ function createCanvaseSize() {
 
 function handleDownload() {
     var imgCanvas = document.createElement("canvas");
-    imgCanvas.width = gCurrentMeme.width;
-    imgCanvas.height = gCurrentMeme.height;
+    imgCanvas.width = gCanvas.width;
+    imgCanvas.height = gCanvas.height;
     var destCtx = imgCanvas.getContext('2d');
-    destCtx.drawImage(gCanvas, 0, 0);
+    destCtx.drawImage(gCanvas, 0, 0)
     var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    console.log(img)
     $('#download').attr('href', img);
 }
 
-function handlePost(elForm, ev) {
-    ev.preventDefault();
-    $('#imgData').val(gCanvas.toDataURL("image/jpeg"));
-    // A function to be called if request succeeds
-    function onSuccess(uploadedImgUrl) {
-        console.log('uploadedImgUrl', uploadedImgUrl);
-        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        $('.share-container').html = `
-        <a class="w-inline-block social-share-btn fb" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share   
-        </a>`
-    }
-    doUploadImg(elForm, onSuccess);
-}
+// function handlePost(elForm, ev) {
+//     ev.preventDefault();
+//     $('#imgData').val(gCanvas.toDataURL("image/jpeg"));
+//     // A function to be called if request succeeds
+//     function onSuccess(uploadedImgUrl) {
+//         console.log('uploadedImgUrl', uploadedImgUrl);
+//         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+//         $('.share-container').html = `
+//         <a class="w-inline-block social-share-btn fb" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+//            Share   
+//         </a>`
+//     }
+//     doUploadImg(elForm, onSuccess);
+// }
 
-function doUploadImg(elForm, onSuccess) {
-    var formData = new FormData(elForm);
+// function doUploadImg(elForm, onSuccess) {
+//     var formData = new FormData(elForm);
 
-    fetch('http://ca-upload.com/here/upload.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(function (response) {
-            return response.text()
-        })
-        .then(onSuccess)
-        .catch(function (error) {
-            console.error(error)
-        })
-}
+//     fetch('http://ca-upload.com/here/upload.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//         .then(function (response) {
+//             return response.text()
+//         })
+//         .then(onSuccess)
+//         .catch(function (error) {
+//             console.error(error)
+//         })
+// }
 
 function onAddRow(rowId = rowNum++) {
     var row = createRow(rowId);

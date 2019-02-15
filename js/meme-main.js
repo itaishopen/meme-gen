@@ -52,8 +52,8 @@ function onMemeChose(memeId) {
     meme.rate += 1;
     saveToLocalStorage(MEME_KEY, meme)
     saveToLocalStorage(MEMES_KEY, gCurrentMemes)
-    window.location.assign('meme-generator.html');
-    drawCanvase();
+    window.location.assign(`meme-generator.html?${memeId}`);
+   
 }
 
 function combineTags(memes) {

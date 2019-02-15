@@ -23,18 +23,29 @@
             <button onclick="onAddRow()"><i class="fas fa-plus-square"></i></button>
             <a id="download" data-tip="download canvas" download="my-meme.png"><button type="button"
                     onclick="handleDownload()"><i class="fas fa-file-download fa-lg"></i></button></a>
-            <form action="" method="POST" enctype="multipart/form-data" onsubmit="handlePost(this, event)">
+            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'facebook')">
                 <input name="img" id="imgData" type="hidden" />
                 <button id="post" type="submit"><i class="fab fa-facebook-f fa-lg"></i></button>
             </form>
+            <!-- <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'twitter')">
+                <input name="img" id="imgData" type="hidden" />
+                <button id="post" type="submit"><i class="fab fa-twitter fa-lg"></i></button>
+            </form>
+            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'pinterest')">
+                <input name="img" id="imgData" type="hidden" />
+                <button id="post" type="submit"><i class="fab fa-pinterest-p fa-lg"></i></button>
+            </form>
+            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'reddit')">
+                <input name="img" id="imgData" type="hidden" />
+                <button id="post" type="submit"><i class="fab fa-reddit-alien fa-lg"></i></button>
+            </form> -->
         </div>
     </header>
     <div class="meme-container">
         <canvas id="my-canvas" onclick="canvasClicked(event)"></canvas>
         <div class="lines-container"></div>
     </div>
-
-
+    <div id="fb-root"></div>
 
 
 
@@ -43,8 +54,9 @@
     <script src="js/storage-service.js"></script>
     <script src="js/meme-storage.js"></script>
     <script src="js/meme-service.js"></script>
-    <script src="js/meme-generator.js"></script>
+    <script src="js/upload-service.js"></script>
     <script src="js/meme-main.js"></script>
+    <script src="js/meme-generator.js"></script>
 </body>
 
 </html>
