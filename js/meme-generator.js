@@ -1,11 +1,11 @@
-var gCanvas;
-var gCtx; 
-var gCurrentMeme = { meme: null, rows: [] };
+var gCanvas, gCtx, gCurrentMeme = { meme: null, rows: [] };
 var rowNum = 0;
-var gCurrRow;
 
 function drawCanvase() {
-    gCurrentMeme.meme = loadFromLocalStorage(MEME_KEY);
+    var memeId = window.location.search
+    if (memeId.substring(0, 1) === '?') memeId = memeId.substring(1);
+    if (!memeId) memeId = '61520';
+    gCurrentMeme.meme = findMemeById(memeId);
     if (!gCurrentMeme.meme) return;
     gCanvas = document.getElementById('my-canvas');
     createCanvaseSize()
@@ -17,14 +17,17 @@ function drawCanvase() {
 
 function createCanvaseSize() {
     if ($('body').width() < 700) {
-        gCanvas.width = $('meme-container').width();
-        gCanvas.height = (($('meme-container').width() * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
-    } else if (gCurrentMeme.meme.width > 500) {
-        gCanvas.width = 500;
-        gCanvas.height = ((500 * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
+        gCanvas.width = $('body').width() - 50;
+        gCanvas.height = ((($('body').width() - 50) * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
     } else {
-        gCanvas.width = gCurrentMeme.meme.width;
-        gCanvas.height = gCurrentMeme.meme.height;
+        
+        if (gCurrentMeme.meme.width > 500) {
+            gCanvas.width = 500;
+            gCanvas.height = ((500 * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
+        } else {
+            gCanvas.width = gCurrentMeme.meme.width;
+            gCanvas.height = gCurrentMeme.meme.height;
+        }
     }
 }
 
@@ -51,11 +54,12 @@ function renderText() {
 
 function handleDownload() {
     var imgCanvas = document.createElement("canvas");
-    imgCanvas.width = gCurrentMeme.width;
-    imgCanvas.height = gCurrentMeme.height;
+    imgCanvas.width = gCurrentMeme.meme.width;
+    imgCanvas.height = gCurrentMeme.meme.height;
     var destCtx = imgCanvas.getContext('2d');
     destCtx.drawImage(gCanvas, 0, 0);
-    var img = imgCanvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
+    var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    console.log(img)
     $('#download').attr('href', img);
 }
 
@@ -130,7 +134,7 @@ function renderTools(row) {
 }
 
 function onDeleteRow(elDeleteBtn) {
-    var rowIdx = elDeleteBtn.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elDeleteBtn.classList[1].replace(/^\D+/g, '');
     var rowId = findRowId(rowIdx)
     gCurrentMeme.rows.splice(rowId, 1);
     $(`.row-item${rowIdx}`).remove();
@@ -138,16 +142,16 @@ function onDeleteRow(elDeleteBtn) {
 }
 
 function onChangeAlign(elAlign, direction) {
-    var rowIdx = elAlign.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elAlign.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.align = direction;
     renderText();
 }
 
 function onChangeSize(elBtnSize) {
-    var rowIdx = elBtnSize.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elBtnSize.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
-    
+
     switch (elBtnSize.classList[0]) {
         case 'larger':
             if (row.size > 120) return;
@@ -187,7 +191,7 @@ function onTxtMove(elBtnMove) {
 }
 
 function onInsertTxt(elInputText) {
-    var rowIdx = elInputText.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elInputText.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.line = elInputText.value;
     $(`.row-item${rowIdx} input[type="text"]`).val(elInputText.value);
@@ -195,7 +199,7 @@ function onInsertTxt(elInputText) {
 }
 
 function onColorChanged(elInputColor) {
-    var rowIdx = elInputColor.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elInputColor.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.color = elInputColor.value;
     renderText();
@@ -210,7 +214,7 @@ function canvasClicked(ev) {
             ev.offsetY < row.y
         )
     })
-    
+
     if (clickedRow) openModal(ev, clickedRow)
     else closeModal()
 }
