@@ -98,7 +98,7 @@ function onAddRow(rowId = rowNum++) {
     gCurrentMeme.rows.push(row);
     
     let strHTML = `
-    <div contenteditable="true" draggable="true" onmousemove="onRowDrag(this)"
+    <div  draggable="true" contenteditable="true" onmousemove="onRowDrag(this)"
         class="row row${rowId}" style="top: ${row.x}; left: ${row.y}">
         ${row.line}
     </div>`
