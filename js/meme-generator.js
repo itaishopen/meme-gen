@@ -8,6 +8,12 @@ function drawCanvase() {
     gCurrentMeme.meme = findMemeById(memeId);
     if (!gCurrentMeme.meme) return;
     gCanvas = document.getElementById('my-canvas');
+    $('#my-canvas').bind('contextmenu', function(e){
+        return false;
+    });
+    $('.lines-container').bind('contextmenu', function(e){
+        return false;
+    });
     createCanvaseSize()
     gCtx = gCanvas.getContext('2d');
     var img = new Image;
@@ -16,6 +22,7 @@ function drawCanvase() {
     }
     onAddRow(rowNum++)
     onAddRow(rowNum++)
+    img.setAttribute('crossOrigin', 'anonymous');
     img.src = gCurrentMeme.meme.url;
 }
 
@@ -36,19 +43,19 @@ function createCanvaseSize() {
 }
 
 // function renderText() {
-//     var rows = gCurrentMeme.rows;
-//     rows.forEach(function renderLine(row) {
-//         gCtx.font = row.size + 'px ' + row.font;
-//         gCtx.shadowColor = "black";
-//         (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
-//         gCtx.fillStyle = row.color;
-//         gCtx.textAlign = row.align;
-//         textLength = (row.line.length * row.size) / 2;
-//         gCtx.lineJoin = 'round';
-//         gCtx.lineWidth = row.size / 5;
-//         gCtx.strokeText(row.line, row.x, row.y);
-//         gCtx.fillText(row.line, row.x, row.y);
-//     })
+    // var rows = gCurrentMeme.rows;
+    // rows.forEach(function renderLine(row) {
+    //     gCtx.font = row.size + 'px ' + row.font;
+    //     gCtx.shadowColor = "black";
+    //     (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
+    //     gCtx.fillStyle = row.color;
+    //     gCtx.textAlign = row.align;
+    //     textLength = (row.line.length * row.size) / 2;
+    //     gCtx.lineJoin = 'round';
+    //     gCtx.lineWidth = row.size / 5;
+    //     gCtx.strokeText(row.line, row.x, row.y);
+    //     gCtx.fillText(row.line, row.x, row.y);
+    // })
 // }
 
 function handleDownload() {
@@ -57,53 +64,38 @@ function handleDownload() {
     imgCanvas.height = gCanvas.height;
     var destCtx = imgCanvas.getContext('2d');
     destCtx.drawImage(gCanvas, 0, 0)
+    var rows = gCurrentMeme.rows;
+    rows.forEach(function renderLine(row) {
+        destCtx.font = row.size + 'px ' + row.font;
+        destCtx.shadowColor = "black";
+        (row.isShadow) ? destCtx.shadowBlur = 15 : destCtx.shadowBlur = 0;
+        destCtx.fillStyle = row.color;
+        destCtx.textAlign = row.align;
+        textLength = (row.line.length * row.size) / 2;
+        destCtx.lineJoin = 'round';
+        destCtx.lineWidth = row.size / 5;
+        destCtx.strokeText(row.line, row.x, row.y);
+        destCtx.fillText(row.line, row.x, row.y);
+    })
     var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
     console.log(img)
     $('#download').attr('href', img);
 }
 
-// function handlePost(elForm, ev) {
-//     ev.preventDefault();
-//     $('#imgData').val(gCanvas.toDataURL("image/jpeg"));
-//     // A function to be called if request succeeds
-//     function onSuccess(uploadedImgUrl) {
-//         console.log('uploadedImgUrl', uploadedImgUrl);
-//         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-//         $('.share-container').html = `
-//         <a class="w-inline-block social-share-btn fb" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-//            Share   
-//         </a>`
-//     }
-//     doUploadImg(elForm, onSuccess);
-// }
-
-// function doUploadImg(elForm, onSuccess) {
-//     var formData = new FormData(elForm);
-
-//     fetch('http://ca-upload.com/here/upload.php', {
-//         method: 'POST',
-//         body: formData
-//     })
-//         .then(function (response) {
-//             return response.text()
-//         })
-//         .then(onSuccess)
-//         .catch(function (error) {
-//             console.error(error)
-//         })
-// }
 
 function onAddRow(rowId = rowNum++) {
     var row = createRow(rowId);
     gCurrentMeme.rows.push(row);
     
     let strHTML = `
-    <div  draggable="true" contenteditable="true" onmousemove="onRowDrag(this)"
-        class="row row${rowId}" style="top: ${row.x}; left: ${row.y}">
+    <div onmousemove="onRowDrag(this)" 
+        class="row row${rowId}" style="top: ${row.x}px; left: ${row.y}px">
         ${row.line}
     </div>`
     document.querySelector('.lines-container').innerHTML += strHTML;
 }
+
+
 // function onAddRow(rowId = rowNum++) {
 //     var row = createRow(rowId);
 //     gCurrentMeme.rows.push(row);
@@ -126,8 +118,15 @@ function onAddRow(rowId = rowNum++) {
 // }
 
 function onRowDrag(elRow) {
+    elRow.setAttribute('draggable', "true");
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    elRow.onmousedown = dragMouseDown;
+    elRow.onmousedown = function(eventData) {
+        if (eventData.button  === 0) {
+            dragMouseDown()
+        } else {
+            openContenteditable()
+        }
+    }
 
     function dragMouseDown(ev) {
         ev = ev || window.event;
@@ -155,7 +154,13 @@ function onRowDrag(elRow) {
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
     }
 
+    function openContenteditable() {
+        elRow.setAttribute('contenteditable', "true");
+    }
+
     function closeDragElement() {
+        elRow.setAttribute('draggable', "false");
+        elRow.setAttribute('contenteditable', "false");
         document.onmouseup = null;
         document.onmousemove = null;
     }
