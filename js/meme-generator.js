@@ -52,7 +52,7 @@ function handleDownload() {
     imgCanvas.height = gCurrentMeme.height;
     var destCtx = imgCanvas.getContext('2d');
     destCtx.drawImage(gCanvas, 0, 0);
-    var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    var img = imgCanvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
     $('#download').attr('href', img);
 }
 
