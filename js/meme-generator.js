@@ -1,5 +1,5 @@
 var gCanvas;
-var gCtx; 
+var gCtx;
 var gCurrentMeme = { meme: null, rows: [] };
 var rowNum = 0;
 var gCurrRow;
@@ -10,9 +10,13 @@ function drawCanvase() {
     gCanvas = document.getElementById('my-canvas');
     createCanvaseSize()
     gCtx = gCanvas.getContext('2d');
+    var img = new Image;
+    img.onload = function () {
+        gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
+    }
     onAddRow(rowNum++)
     onAddRow(rowNum++)
-    renderText()
+    img.src = gCurrentMeme.meme.url;
 }
 
 function createCanvaseSize() {
@@ -28,26 +32,21 @@ function createCanvaseSize() {
     }
 }
 
-function renderText() {
-    var img = new Image;
-    img.onload = function () {
-        gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
-        var rows = gCurrentMeme.rows;
-        rows.forEach(function renderLine(row) {
-            gCtx.font = row.size + 'px ' + row.font;
-            gCtx.shadowColor = "black";
-            (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
-            gCtx.fillStyle = row.color;
-            gCtx.textAlign = row.align;
-            textLength = (row.line.length * row.size) / 2;
-            gCtx.lineJoin = 'round';
-            gCtx.lineWidth = row.size / 5;
-            gCtx.strokeText(row.line, row.x, row.y);
-            gCtx.fillText(row.line, row.x, row.y);
-        })
-    }
-    img.src = gCurrentMeme.meme.url;
-}
+// function renderText() {
+//     var rows = gCurrentMeme.rows;
+//     rows.forEach(function renderLine(row) {
+//         gCtx.font = row.size + 'px ' + row.font;
+//         gCtx.shadowColor = "black";
+//         (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
+//         gCtx.fillStyle = row.color;
+//         gCtx.textAlign = row.align;
+//         textLength = (row.line.length * row.size) / 2;
+//         gCtx.lineJoin = 'round';
+//         gCtx.lineWidth = row.size / 5;
+//         gCtx.strokeText(row.line, row.x, row.y);
+//         gCtx.fillText(row.line, row.x, row.y);
+//     })
+// }
 
 function handleDownload() {
     var imgCanvas = document.createElement("canvas");
@@ -93,23 +92,71 @@ function doUploadImg(elForm, onSuccess) {
 function onAddRow(rowId = rowNum++) {
     var row = createRow(rowId);
     gCurrentMeme.rows.push(row);
-    var strHTML = `<div class="row-item row-item${rowId}">
-        <input type="text" class="txt txt${rowId}" value="" onkeyup="onInsertTxt(this)">
-        <input class="color color${rowId}" type="color" value="${row.color}" onchange="onColorChanged(this)">
-        <button class="up up${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-up"></i></button>
-        <button class="down down${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-down"></i></button>
-        <button class="right right${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-right"></i></button>
-        <button class="left left${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-left"></i></button>
-        <button class="larger larger${rowId}" onclick="onChangeSize(this)"><i class="fas fa-plus"></i></button>
-        <button class="smaller smaller${rowId}" onclick="onChangeSize(this)"><i class="fas fa-minus"></i></button>
-        <button class="align-left align-left${rowId}" onclick="onChangeAlign(this, 'right')"><i class="fas fa-align-left"></i></button>
-        <button class="align-center align-center${rowId}" onclick="onChangeAlign(this, 'center')"><i class="fas fa-align-justify"></i></button>
-        <button class="align-right align-right${rowId}" onclick="onChangeAlign(this, 'left')"><i class="fas fa-align-right"></i></button>
-        <button class="delete delete${rowId}" onclick="onDeleteRow(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
-    </div>
-    `;
-    $('.text-container').append(strHTML);
+    
+    let strHTML = `
+    <div contenteditable="true" draggable="true" onmousemove="onRowDrag(this)"
+        class="row row${rowId}" style="top: ${row.x}; left: ${row.y}">
+        ${row.line}
+    </div>`
+    document.querySelector('.lines-container').innerHTML += strHTML;
 }
+// function onAddRow(rowId = rowNum++) {
+//     var row = createRow(rowId);
+//     gCurrentMeme.rows.push(row);
+//     var strHTML = `<div class="row-item row-item${rowId}">
+//         <input type="text" class="txt txt${rowId}" value="" onkeyup="onInsertTxt(this)">
+//         <input class="color color${rowId}" type="color" value="${row.color}" onchange="onColorChanged(this)">
+//         <button class="up up${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-up"></i></button>
+//         <button class="down down${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-down"></i></button>
+//         <button class="right right${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-right"></i></button>
+//         <button class="left left${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-left"></i></button>
+//         <button class="larger larger${rowId}" onclick="onChangeSize(this)"><i class="fas fa-plus"></i></button>
+//         <button class="smaller smaller${rowId}" onclick="onChangeSize(this)"><i class="fas fa-minus"></i></button>
+//         <button class="align-left align-left${rowId}" onclick="onChangeAlign(this, 'right')"><i class="fas fa-align-left"></i></button>
+//         <button class="align-center align-center${rowId}" onclick="onChangeAlign(this, 'center')"><i class="fas fa-align-justify"></i></button>
+//         <button class="align-right align-right${rowId}" onclick="onChangeAlign(this, 'left')"><i class="fas fa-align-right"></i></button>
+//         <button class="delete delete${rowId}" onclick="onDeleteRow(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
+//     </div>
+//     `;
+//     $('.text-container').append(strHTML);
+// }
+
+function onRowDrag(elRow) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    elRow.onmousedown = dragMouseDown;
+
+    function dragMouseDown(ev) {
+        ev = ev || window.event;
+        ev.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = ev.clientX;
+        pos4 = ev.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(ev) {
+        ev = ev || window.event;
+        ev.preventDefault();
+
+        // calculate the new cursor position:
+        pos1 = pos3 - ev.clientX;
+        pos2 = pos4 - ev.clientY;
+        pos3 = ev.clientX;
+        pos4 = ev.clientY;
+
+        // set the element's new position:
+        elRow.style.top = (elRow.offsetTop - pos2) + "px";
+        elRow.style.left = (elRow.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+
 
 function renderTools(row) {
     var rowId = row.id;
@@ -130,7 +177,7 @@ function renderTools(row) {
 }
 
 function onDeleteRow(elDeleteBtn) {
-    var rowIdx = elDeleteBtn.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elDeleteBtn.classList[1].replace(/^\D+/g, '');
     var rowId = findRowId(rowIdx)
     gCurrentMeme.rows.splice(rowId, 1);
     $(`.row-item${rowIdx}`).remove();
@@ -138,16 +185,16 @@ function onDeleteRow(elDeleteBtn) {
 }
 
 function onChangeAlign(elAlign, direction) {
-    var rowIdx = elAlign.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elAlign.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.align = direction;
     renderText();
 }
 
 function onChangeSize(elBtnSize) {
-    var rowIdx = elBtnSize.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elBtnSize.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
-    
+
     switch (elBtnSize.classList[0]) {
         case 'larger':
             if (row.size > 120) return;
@@ -187,7 +234,7 @@ function onTxtMove(elBtnMove) {
 }
 
 function onInsertTxt(elInputText) {
-    var rowIdx = elInputText.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elInputText.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.line = elInputText.value;
     $(`.row-item${rowIdx} input[type="text"]`).val(elInputText.value);
@@ -195,7 +242,7 @@ function onInsertTxt(elInputText) {
 }
 
 function onColorChanged(elInputColor) {
-    var rowIdx = elInputColor.classList[1].replace( /^\D+/g, '');
+    var rowIdx = elInputColor.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.color = elInputColor.value;
     renderText();
@@ -210,7 +257,7 @@ function canvasClicked(ev) {
             ev.offsetY < row.y
         )
     })
-    
+
     if (clickedRow) openModal(ev, clickedRow)
     else closeModal()
 }

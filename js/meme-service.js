@@ -75,7 +75,7 @@ function createRow(num) {
         case 0:
             return {
                 id: `${num}`,
-                line: '',
+                line: 'first line',
                 size: 60,
                 align: 'center',
                 color: '#ffffff',
@@ -88,7 +88,7 @@ function createRow(num) {
         case 1:
             return {
                 id: `${num}`,
-                line: '',
+                line: 'second line',
                 size: 60,
                 align: 'center',
                 color: '#ffffff',
@@ -102,7 +102,7 @@ function createRow(num) {
         if ((60 + (60 * (num - 1))) < gCanvas.height) {
             return {
                 id: `${num}`,
-                line: '',
+                line: 'new line',
                 size: 60,
                 align: 'center',
                 color: '#ffffff',
@@ -115,7 +115,7 @@ function createRow(num) {
         } else {
             return {
                 id: `${num}`,
-                line: '',
+                line: 'new line',
                 size: 60,
                 align: 'center',
                 color: '#ffffff',

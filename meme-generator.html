@@ -15,14 +15,6 @@
 
 <body onload="drawCanvase()">
     <header class="main-header flex">
-        <nav class="main-nav flex space-evenly">
-            <a href="#" class="flex align-center space-center">About Us</a>
-            <a href="#" class="flex align-center space-center">Home</a>
-            <a href="#" class="flex align-center space-center">Contact Us</a>
-        </nav>
-    </header>
-    <div class="meme-container flex">
-        <canvas id="my-canvas" onclick="canvasClicked(event)"></canvas>
         <div class="control">
             <div class="text-container">
             </div>
@@ -36,7 +28,13 @@
                 <button id="post" type="submit"><i class="fab fa-facebook-f fa-lg"></i></button>
             </form>
         </div>
+    </header>
+    <div class="meme-container">
+        <canvas id="my-canvas" onclick="canvasClicked(event)"></canvas>
+        <div class="lines-container"></div>
     </div>
+
+
 
 
 
