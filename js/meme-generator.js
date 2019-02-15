@@ -1,5 +1,8 @@
-var gCanvas, gCtx, gCurrentMeme = { meme: null, rows: [] };
+var gCanvas;
+var gCtx; 
+var gCurrentMeme = { meme: null, rows: [] };
 var rowNum = 0;
+var gCurrRow;
 
 function drawCanvase() {
     gCurrentMeme.meme = loadFromLocalStorage(MEME_KEY);
