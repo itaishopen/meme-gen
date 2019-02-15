@@ -49,15 +49,16 @@ function renderText() {
             gCtx.fillText(row.line, row.x, row.y);
         })
     }
+    img.setAttribute('crossOrigin', 'anonymous');
     img.src = gCurrentMeme.meme.url;
 }
 
 function handleDownload() {
     var imgCanvas = document.createElement("canvas");
-    imgCanvas.width = gCurrentMeme.meme.width;
-    imgCanvas.height = gCurrentMeme.meme.height;
+    imgCanvas.width = gCanvas.width;
+    imgCanvas.height = gCanvas.height;
     var destCtx = imgCanvas.getContext('2d');
-    destCtx.drawImage(gCanvas, 0, 0);
+    destCtx.drawImage(gCanvas, 0, 0)
     var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
     console.log(img)
     $('#download').attr('href', img);
