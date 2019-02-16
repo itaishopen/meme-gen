@@ -23,8 +23,15 @@ body {
 .meme-container {
     position: relative;
     font-family: Impact, sans-serif;
-    left: 25vw
 }
+
+@media(min-width: 700px) {
+    .meme-container {
+        left: 25vw
+    }
+}
+
+
 
 .lines-container {
     position: relative;

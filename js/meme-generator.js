@@ -76,14 +76,16 @@ function onDownload() {
 }
 
 function handleDownload() {
+    
     var imgCanvas = document.createElement("canvas");
     imgCanvas.width = gCanvas.width;
     imgCanvas.height = gCanvas.height;
     var destCtx = imgCanvas.getContext('2d');
     destCtx.drawImage(gCanvas, 0, 0)
     var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-    $('#download').attr('download', `${gCurrentMeme.meme.name}.png`);
-    $('#download').attr('href', img);
+    console.log($('footer #download'))
+    $('footer #download').attr('download', `${gCurrentMeme.meme.name}.png`);
+    $('footer #download').attr('href', img);
 }
 
 function onAddRow(rowId = rowNum++) {
@@ -95,7 +97,7 @@ function onAddRow(rowId = rowNum++) {
     class="row row${rowId}" style="top:${row.y}px; left: 0px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
     placeholder="row #${rowId + 1}">
     `
-    document.querySelector('.lines-container').innerHTML += strHTML;
+    $('.lines-container').append(strHTML);
 }
 
 function onInsertTxt(elInputText) {
@@ -144,7 +146,6 @@ function onRowDrag(elRow) {
         // set the element's new position:
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
         elRow.style.top = (elRow.offsetTop - pos2) + "px";
-        // console.log(elRow.offsetLeft, pos1, pos2, row.x, row.y)
         row.x =  elRow.offsetLeft - pos1 + (gCanvas.width / 2);
         row.y = elRow.offsetTop - pos2 + row.size - 5;
         renderText()
