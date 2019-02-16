@@ -148,6 +148,16 @@ input[type="text"] {
 	background-color: #75787f
 }
 
+.control-item.fontSizing {
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.control-item > h6 {
+	font-size: 1.5em;
+}
+
 button.control-item {
 	background-color: rgba(255, 255, 255, 0);
 	color: white;
@@ -161,4 +171,16 @@ button.control-item {
 	appearance: none;
     border: none;
     background: 0;
+}
+
+.changeSize {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.hide {
+	display: none;
 }
