@@ -21,27 +21,28 @@
     </div>
     <div id="fb-root"></div>
 
-    <footer class="control" onmouseover="hideFontSize()">
+    <footer class="control">
         <div class="control-item" onclick="onAddRow()">
             <i class="fas fa-plus-square"></i>
             <p>Add Line</p>
         </div>
         <div class="control-item " onclick="onOpenColorPalette()">
-            <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged()" hidden></i>
+            <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged()"
+                    hidden></i>
             <p>Change Color</p>
         </div>
         <div class="control-item changeFontSize" onmouseover="addFontSize()">
             <h6>&#128474;</h6>
             <p>Font Size</p>
         </div>
-        <div class="control-item fontSizing flex hide" class="hidden">
-                <div class="changeSize" onclick="onChangeSize('larger')">
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="changeSize" onclick="onChangeSize('smaller')">
-                    <i class="fas fa-minus"></i>
-                </div>
+        <div class="control-item fontSizing flex hide" onmouseout="hideFontSize()">
+            <div class="changeSize" onclick="onChangeSize('larger')">
+                <i class="fas fa-plus"></i>
             </div>
+            <div class="changeSize" onclick="onChangeSize('smaller')">
+                <i class="fas fa-minus"></i>
+            </div>
+        </div>
         <div class="control-item" onclick="handleDownload()">
             <a id="download" data-tip="download canvas" download="my-meme.png"></a>
             <i class="fas fa-file-download fa-lg"></i>
