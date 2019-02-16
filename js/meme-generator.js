@@ -94,9 +94,16 @@ function onAddRow(rowId = rowNum++) {
     document.querySelector('.lines-container').innerHTML += strHTML;
 }
 
-function onRowDrag(elRow) {
-    console.log('drag');
-    
+function onInsertTxt(elInputText) {
+    var rowIdx = elInputText.classList[1].replace(/^\D+/g, '');
+    var row = findRowByIdx(rowIdx);
+    row.line = elInputText.value;
+    gSelectedRow = row;
+    // $(`.row${rowIdx}`).val(elInputText.value);
+    renderText()
+}
+
+function onRowDrag(elRow) {    
     var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''))
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     elRow.onclick = openContenteditable
@@ -105,6 +112,7 @@ function onRowDrag(elRow) {
     function dragMouseDown(ev) {
         // ev = ev || window.event;
         // ev.preventDefault();
+        gSelectedRow = row;
         elRow.setAttribute('draggable', "true");
         // get the mouse cursor position at startup:
         pos3 = ev.offsetLeft;
@@ -132,7 +140,7 @@ function onRowDrag(elRow) {
         // set the element's new position:
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
         elRow.style.top = (elRow.offsetTop - pos2) + "px";
-        console.log(elRow.offsetLeft, pos1, pos2, row.x, row.y)
+        // console.log(elRow.offsetLeft, pos1, pos2, row.x, row.y)
         row.x =  elRow.offsetLeft - pos1 + (gCanvas.width / 2);
         row.y = elRow.offsetTop - pos2 + row.size - 5;
         renderText()
@@ -183,18 +191,25 @@ function onChangeAlign(elAlign, direction) {
     renderText();
 }
 
-function onChangeSize(elBtnSize) {
-    var rowIdx = elBtnSize.classList[1].replace(/^\D+/g, '');
-    var row = findRowByIdx(rowIdx);
+function addFontSize() {
+    $('.changeFontSize').addClass('hide');
+    $('.fontSizing').removeClass('hide');
+}
 
-    switch (elBtnSize.classList[0]) {
+function hideFontSize() {
+    $('.fontSizing').addClass('hide');
+    $('.changeFontSize').removeClass('hide');
+}
+
+function onChangeSize(changeSize) {
+    switch (changeSize) {
         case 'larger':
-            if (row.size > 120) return;
-            row.size = row.size + 5;
+            if (gSelectedRow.size > 120) return;
+            gSelectedRow.size = gSelectedRow.size + 5;
             break;
         case 'smaller':
-            if (row.size < 6) return;
-            row.size -= 5;
+            if (gSelectedRow.size < 6) return;
+            gSelectedRow.size -= 5;
             break;
         default:
             break;
@@ -225,24 +240,12 @@ function onTxtMove(elBtnMove) {
     renderText();
 }
 
-//var $focused = $(':focus');
-
-function onInsertTxt(elInputText) {
-    var rowIdx = elInputText.classList[1].replace(/^\D+/g, '');
-    var row = findRowByIdx(rowIdx);
-    row.line = elInputText.value;
-    // $(`.row${rowIdx}`).val(elInputText.value);
-    renderText()
-}
-
 function onOpenColorPalette() {
     $('.control-color-btn')[0].click();
 }
 
-function onColorChanged(elInputColor) {
-    var rowIdx = elInputColor.classList[1].replace(/^\D+/g, '');
-    var row = findRowByIdx(rowIdx);
-    row.color = elInputColor.value;
+function onColorChanged() {
+    gSelectedRow.color = $('.control-color-btn').val();
     renderText();
 }
 
@@ -258,17 +261,6 @@ function canvasClicked(ev) {
 
     if (clickedRow) openModal(ev, clickedRow)
     else closeModal()
-}
-
-function openModal(ev, row) {
-    var modal = document.querySelector('.modal');
-    modal.classList.add('d-block');
-    document.querySelector('.modal').innerHTML = renderTools(row);
-    modal.style.top = ev.clientY + 'px';
-    modal.style.left = ev.clientX + 'px';
-}
-function closeModal() {
-    document.querySelector('.modal').classList.remove('d-block')
 }
 
 function findRowByIdx(rowIdx) {
