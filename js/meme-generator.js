@@ -76,14 +76,12 @@ function onDownload() {
 }
 
 function handleDownload() {
-    
     var imgCanvas = document.createElement("canvas");
     imgCanvas.width = gCanvas.width;
     imgCanvas.height = gCanvas.height;
     var destCtx = imgCanvas.getContext('2d');
     destCtx.drawImage(gCanvas, 0, 0)
     var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-    console.log($('footer #download'))
     $('footer #download').attr('download', `${gCurrentMeme.meme.name}.png`);
     $('footer #download').attr('href', img);
 }

@@ -33,7 +33,8 @@ body {
 
 .meme-container {
     position: relative;
-	font-family: Impact, sans-serif;
+    font-family: Impact, sans-serif;
+    left: 25px;
 	margin-bottom: 150px;
 }
 

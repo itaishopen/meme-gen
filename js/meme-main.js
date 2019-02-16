@@ -65,11 +65,31 @@ function combineTags(memes) {
 }
 
 function mostRepeatedTags(tags) {
-    var ref = tags.reduce(function (acc, tag) {
-        if (!acc[tag]) acc[tag] = 0;
-        acc[tag]++;
+    var ref = tags.reduce(function(acc, tag) {
+        if (!acc.get(tag)) acc.set(tag,0);
+        acc.set(tag,+acc.get(tag) + 1);
         return acc;
-    }, {});
-    var sorted = Object.keys(ref).sort(function (a, b) { return ref[b] - ref[a] })
+    },new Map());
+    var sorted = new Map([...ref].sort(([k, v], [k2, v2])=> {
+        if (v > v2) return -1;
+        if (v < v2) return 1;
+        return 0; 
+      }));
     return sorted;
+}
+
+function renderKeywords() {
+    var elKeys = document.querySelector('.keywords-container');
+    console.log('elKeywordsContainer', elKeys);
+    var strHtml = '';
+    for (var key in gKeywordCountMap) {
+        var fontSize = getFontSize(gKeywordCountMap[key]);
+        console.log('keyyyy', key, 'gKeywordCount[key]', gKeywordCountMap[key]);
+        strHtml += '<a href="#" onclick="filterImgs(this)" style="font-size:' + fontSize + 'px";>' + key + '</a>'
+    }
+    elKeys.innerHTML = strHtml;
+}
+
+function getFontSize(num) {
+    return 20 + 20 * num
 }
