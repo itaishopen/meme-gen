@@ -76,7 +76,6 @@ function handleDownload() {
     $('#download').attr('href', img);
 }
 
-
 function onAddRow(rowId = rowNum++) {
     var row = createRow(rowId);
     gCurrentMeme.rows.push(row);
@@ -88,28 +87,6 @@ function onAddRow(rowId = rowNum++) {
     `
     document.querySelector('.lines-container').innerHTML += strHTML;
 }
-
-
-// function onAddRow(rowId = rowNum++) {
-//     var row = createRow(rowId);
-//     gCurrentMeme.rows.push(row);
-//     var strHTML = `<div class="row-item row-item${rowId}">
-//         <input type="text" class="txt txt${rowId}" value="" onkeyup="onInsertTxt(this)">
-//         <input class="color color${rowId}" type="color" value="${row.color}" onchange="onColorChanged(this)">
-//         <button class="up up${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-up"></i></button>
-//         <button class="down down${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-down"></i></button>
-//         <button class="right right${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-right"></i></button>
-//         <button class="left left${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-left"></i></button>
-//         <button class="larger larger${rowId}" onclick="onChangeSize(this)"><i class="fas fa-plus"></i></button>
-//         <button class="smaller smaller${rowId}" onclick="onChangeSize(this)"><i class="fas fa-minus"></i></button>
-//         <button class="align-left align-left${rowId}" onclick="onChangeAlign(this, 'right')"><i class="fas fa-align-left"></i></button>
-//         <button class="align-center align-center${rowId}" onclick="onChangeAlign(this, 'center')"><i class="fas fa-align-justify"></i></button>
-//         <button class="align-right align-right${rowId}" onclick="onChangeAlign(this, 'left')"><i class="fas fa-align-right"></i></button>
-//         <button class="delete delete${rowId}" onclick="onDeleteRow(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
-//     </div>
-//     `;
-//     $('.text-container').append(strHTML);
-// }
 
 function onRowDrag(elRow) {
     var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''))
