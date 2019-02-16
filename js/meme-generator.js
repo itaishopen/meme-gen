@@ -21,6 +21,7 @@ function drawCanvase() {
         return false;
     });
     createCanvaseSize()
+    $('.meme-container').css({'width': gCanvas.width, 'height': gCanvas.height})
     gCtx = gCanvas.getContext('2d');
     var img = new Image;
     img.onload = function () {
@@ -81,40 +82,17 @@ function handleDownload() {
     $('#download').attr('href', img);
 }
 
-
 function onAddRow(rowId = rowNum++) {
     var row = createRow(rowId);
     gCurrentMeme.rows.push(row);
     
     let strHTML = `
     <input type="text" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
-    class="row row${rowId}" style="top:${row.y}px; left: ${row.x}px; ;text-align: ${row.align}; 
-    max-width: ${gCanvas.width}px;" placeholder="row #${rowId + 1}">
+    class="row row${rowId}" style="top:${row.y}px; left: 0px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
+    placeholder="row #${rowId + 1}">
     `
     document.querySelector('.lines-container').innerHTML += strHTML;
 }
-
-
-// function onAddRow(rowId = rowNum++) {
-//     var row = createRow(rowId);
-//     gCurrentMeme.rows.push(row);
-//     var strHTML = `<div class="row-item row-item${rowId}">
-//         <input type="text" class="txt txt${rowId}" value="" onkeyup="onInsertTxt(this)">
-//         <input class="color color${rowId}" type="color" value="${row.color}" onchange="onColorChanged(this)">
-//         <button class="up up${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-up"></i></button>
-//         <button class="down down${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-down"></i></button>
-//         <button class="right right${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-right"></i></button>
-//         <button class="left left${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-left"></i></button>
-//         <button class="larger larger${rowId}" onclick="onChangeSize(this)"><i class="fas fa-plus"></i></button>
-//         <button class="smaller smaller${rowId}" onclick="onChangeSize(this)"><i class="fas fa-minus"></i></button>
-//         <button class="align-left align-left${rowId}" onclick="onChangeAlign(this, 'right')"><i class="fas fa-align-left"></i></button>
-//         <button class="align-center align-center${rowId}" onclick="onChangeAlign(this, 'center')"><i class="fas fa-align-justify"></i></button>
-//         <button class="align-right align-right${rowId}" onclick="onChangeAlign(this, 'left')"><i class="fas fa-align-right"></i></button>
-//         <button class="delete delete${rowId}" onclick="onDeleteRow(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
-//     </div>
-//     `;
-//     $('.text-container').append(strHTML);
-// }
 
 function onRowDrag(elRow) {
     console.log('drag');
@@ -129,9 +107,9 @@ function onRowDrag(elRow) {
         // ev.preventDefault();
         elRow.setAttribute('draggable', "true");
         // get the mouse cursor position at startup:
-        pos3 = elRow.left;
-        pos4 = elRow.top;
-        if (row.isFirst) {
+        pos3 = ev.offsetLeft;
+        pos4 = ev.offsetTop;
+        if(row.isFirst) {
             row.x += (row.size / 5);
             row.y += row.size - 5;
             row.isFirst = false;
@@ -152,9 +130,10 @@ function onRowDrag(elRow) {
         pos3 = ev.clientX;
         pos4 = ev.clientY;
         // set the element's new position:
-        elRow.style.top = (elRow.offsetTop - pos2) + "px";
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
-        row.x = elRow.offsetLeft - pos1 + (row.size / 5);
+        elRow.style.top = (elRow.offsetTop - pos2) + "px";
+        console.log(elRow.offsetLeft, pos1, pos2, row.x, row.y)
+        row.x =  elRow.offsetLeft - pos1 + (gCanvas.width / 2);
         row.y = elRow.offsetTop - pos2 + row.size - 5;
         renderText()
     }
