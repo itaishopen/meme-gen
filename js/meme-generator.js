@@ -42,21 +42,27 @@ function createCanvaseSize() {
     }
 }
 
-// function renderText() {
-    // var rows = gCurrentMeme.rows;
-    // rows.forEach(function renderLine(row) {
-    //     gCtx.font = row.size + 'px ' + row.font;
-    //     gCtx.shadowColor = "black";
-    //     (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
-    //     gCtx.fillStyle = row.color;
-    //     gCtx.textAlign = row.align;
-    //     textLength = (row.line.length * row.size) / 2;
-    //     gCtx.lineJoin = 'round';
-    //     gCtx.lineWidth = row.size / 5;
-    //     gCtx.strokeText(row.line, row.x, row.y);
-    //     gCtx.fillText(row.line, row.x, row.y);
-    // })
-// }
+function renderText() {
+    var img = new Image;
+    img.onload = function () {
+        gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
+        var rows = gCurrentMeme.rows;
+        rows.forEach(function renderLine(row) {
+            gCtx.font = row.size + 'px ' + row.font;
+            gCtx.shadowColor = "black";
+            (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
+            gCtx.fillStyle = row.color;
+            gCtx.textAlign = row.align;
+            textLength = (row.line.length * row.size) / 2;
+            gCtx.lineJoin = 'round';
+            gCtx.lineWidth = row.size / 5;
+            gCtx.strokeText(row.line, row.x, row.y);
+            gCtx.fillText(row.line, row.x, row.y);
+        })
+    }
+    img.setAttribute('crossOrigin', 'anonymous');
+    img.src = gCurrentMeme.meme.url;
+}
 
 function handleDownload() {
     var imgCanvas = document.createElement("canvas");
@@ -64,21 +70,7 @@ function handleDownload() {
     imgCanvas.height = gCanvas.height;
     var destCtx = imgCanvas.getContext('2d');
     destCtx.drawImage(gCanvas, 0, 0)
-    var rows = gCurrentMeme.rows;
-    rows.forEach(function renderLine(row) {
-        destCtx.font = row.size + 'px ' + row.font;
-        destCtx.shadowColor = "black";
-        (row.isShadow) ? destCtx.shadowBlur = 15 : destCtx.shadowBlur = 0;
-        destCtx.fillStyle = row.color;
-        destCtx.textAlign = row.align;
-        textLength = (row.line.length * row.size) / 2;
-        destCtx.lineJoin = 'round';
-        destCtx.lineWidth = row.size / 5;
-        destCtx.strokeText(row.line, row.x, row.y);
-        destCtx.fillText(row.line, row.x, row.y);
-    })
     var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-    console.log(img)
     $('#download').attr('href', img);
 }
 
@@ -88,10 +80,10 @@ function onAddRow(rowId = rowNum++) {
     gCurrentMeme.rows.push(row);
     
     let strHTML = `
-    <div onmousemove="onRowDrag(this)" 
-        class="row row${rowId}" style="top: ${row.x}px; left: ${row.y}px">
-        ${row.line}
-    </div>`
+    <input type="text" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
+    class="row row${rowId}" style="top:${row.y}px; left: ${row.x}px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
+    placeholder="row #${rowId + 1}">
+    `
     document.querySelector('.lines-container').innerHTML += strHTML;
 }
 
@@ -118,22 +110,24 @@ function onAddRow(rowId = rowNum++) {
 // }
 
 function onRowDrag(elRow) {
-    elRow.setAttribute('draggable', "true");
+    var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''))
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    elRow.onmousedown = function(eventData) {
-        if (eventData.button  === 0) {
-            dragMouseDown()
-        } else {
-            openContenteditable()
-        }
-    }
+    elRow.onclick = openContenteditable
+    elRow.onmousedown = dragMouseDown;
 
     function dragMouseDown(ev) {
-        ev = ev || window.event;
-        ev.preventDefault();
+        // ev = ev || window.event;
+        // ev.preventDefault();
+        elRow.setAttribute('draggable', "true");
         // get the mouse cursor position at startup:
-        pos3 = ev.clientX;
-        pos4 = ev.clientY;
+        pos3 = elRow.left;
+        pos4 = elRow.top;
+        if(row.isFirst) {
+            row.x += (row.size / 5);
+            row.y += row.size - 5;
+            row.isFirst = false;
+        }
+        renderText()
         document.onmouseup = closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
@@ -142,16 +136,18 @@ function onRowDrag(elRow) {
     function elementDrag(ev) {
         ev = ev || window.event;
         ev.preventDefault();
-
+        elRow.setAttribute('contenteditable', "false");
         // calculate the new cursor position:
         pos1 = pos3 - ev.clientX;
         pos2 = pos4 - ev.clientY;
         pos3 = ev.clientX;
         pos4 = ev.clientY;
-
         // set the element's new position:
         elRow.style.top = (elRow.offsetTop - pos2) + "px";
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
+        row.x = elRow.offsetLeft - pos1 + (row.size / 5);
+        row.y = elRow.offsetTop - pos2 + row.size - 5;
+        renderText()
     }
 
     function openContenteditable() {
@@ -160,7 +156,6 @@ function onRowDrag(elRow) {
 
     function closeDragElement() {
         elRow.setAttribute('draggable', "false");
-        elRow.setAttribute('contenteditable', "false");
         document.onmouseup = null;
         document.onmousemove = null;
     }
@@ -189,7 +184,7 @@ function onDeleteRow(elDeleteBtn) {
     var rowIdx = elDeleteBtn.classList[1].replace(/^\D+/g, '');
     var rowId = findRowId(rowIdx)
     gCurrentMeme.rows.splice(rowId, 1);
-    $(`.row-item${rowIdx}`).remove();
+    $(`.row${rowIdx}`).remove();
     renderText();
 }
 
@@ -246,7 +241,7 @@ function onInsertTxt(elInputText) {
     var rowIdx = elInputText.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.line = elInputText.value;
-    $(`.row-item${rowIdx} input[type="text"]`).val(elInputText.value);
+    // $(`.row${rowIdx}`).val(elInputText.value);
     renderText()
 }
 
