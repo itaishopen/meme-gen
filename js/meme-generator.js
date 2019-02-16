@@ -89,7 +89,7 @@ function onAddRow(rowId = rowNum++) {
     
     let strHTML = `
     <div onmousemove="onRowDrag(this)" 
-        class="row row${rowId}" style="top: ${row.x}px; left: ${row.y}px">
+        class="row row${rowId}" style="top: ${row.y}px; left: ${row.x}px">
         ${row.line}
     </div>`
     document.querySelector('.lines-container').innerHTML += strHTML;
@@ -141,7 +141,7 @@ function onRowDrag(elRow) {
 
     function elementDrag(ev) {
         ev = ev || window.event;
-        ev.preventDefault();
+        // ev.preventDefault();
 
         // calculate the new cursor position:
         pos1 = pos3 - ev.clientX;
@@ -152,6 +152,16 @@ function onRowDrag(elRow) {
         // set the element's new position:
         elRow.style.top = (elRow.offsetTop - pos2) + "px";
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
+
+        var rowIdx = elRow.classList[1].replace(/^\D+/g, '');
+        var row = findRowByIdx(rowIdx);
+        // row.x = (elRow.offsetTop - pos2) + "px";
+        // row.y = (elRow.offsetLeft - pos1) + "px";
+        
+        // let containerSizes = document.querySelector('.meme-container').getBoundingClientRect();
+        // let { top, left } = elRow.getBoundingClientRect();
+        // row.x = left - containerSizes.left;
+        // row.y = top - containerSizes.top;
     }
 
     function openContenteditable() {
