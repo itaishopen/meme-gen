@@ -9,6 +9,26 @@ body {
 	background-color: #30343f;
 }
 
+.back {
+	background-color: #ed254e;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	text-align: center;
+	padding: 10px 50px;
+	margin: 10px 20px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 22px;
+	height: 60px;
+    transition: .2s;
+}
+
+.back:hover {
+	background-color: #f04c6e;
+}
+
 #my-canvas {
     /* border: 1px solid black; */
     position: absolute;
@@ -175,6 +195,7 @@ button.control-item {
 
 .changeSize {
 	flex: 1;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

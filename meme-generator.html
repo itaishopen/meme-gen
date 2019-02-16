@@ -14,39 +14,45 @@
 </head>
 
 <body onload="drawCanvase()">
-    <header class="main-header flex"></header>
+    <header class="main-header flex">
+        <button class="back" onclick="location.href='index.html'">Return</button>
+    </header>
     <div class="meme-container">
         <canvas id="my-canvas"></canvas>
         <div class="lines-container"></div>
     </div>
     <div id="fb-root"></div>
 
-    <footer class="control" onmouseover="hideFontSize()">
+    <footer class="control">
         <div class="control-item" onclick="onAddRow()">
             <i class="fas fa-plus-square"></i>
             <p>Add Line</p>
         </div>
+        <div class="control-item" onclick="onDeleteRow()">
+            <i class="far fa-trash-alt"></i>
+            <p>Delete Line</p>
+        </div>
         <div class="control-item " onclick="onOpenColorPalette()">
-            <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged()" hidden></i>
+            <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged()"
+                    hidden></i>
             <p>Change Color</p>
         </div>
         <div class="control-item changeFontSize" onmouseover="addFontSize()">
             <h6>&#128474;</h6>
             <p>Font Size</p>
         </div>
-        <div class="control-item fontSizing flex hide" class="hidden">
-                <div class="changeSize" onclick="onChangeSize('larger')">
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="changeSize" onclick="onChangeSize('smaller')">
-                    <i class="fas fa-minus"></i>
-                </div>
+        <div class="control-item fontSizing flex hide" onmouseout="hideFontSize()">
+            <div class="changeSize" onclick="onChangeSize('larger')">
+                <i class="fas fa-plus"></i>
             </div>
-        <div class="control-item" onclick="handleDownload()">
-            <a id="download" data-tip="download canvas" download="my-meme.png">
-                <i class="fas fa-file-download fa-lg"></i>
-                <p>download</p>
-            </a>
+            <div class="changeSize" onclick="onChangeSize('smaller')">
+                <i class="fas fa-minus"></i>
+            </div>
+        </div>
+        <div class="control-item" onclick="onDownload();">
+            <a id="download" data-tip="download canvas" download="my-meme.png" onclick="handleDownload()"></a>
+            <i class="fas fa-file-download fa-lg"></i>
+            <p>download</p>
         </div>
         <button class="control-item" id="post" type="submit" form="frmShare">
             <form id="frmShare" action="" method="POST" enctype="multipart/form-data"
