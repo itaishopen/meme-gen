@@ -15,6 +15,7 @@ function drawCanvase() {
         return false;
     });
     createCanvaseSize()
+    $('.meme-container').css({'width': gCanvas.width, 'height': gCanvas.height})
     gCtx = gCanvas.getContext('2d');
     var img = new Image;
     img.onload = function () {
@@ -82,7 +83,7 @@ function onAddRow(rowId = rowNum++) {
     
     let strHTML = `
     <input type="text" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
-    class="row row${rowId}" style="top:${row.y}px; left: ${row.x}px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
+    class="row row${rowId}" style="top:${row.y}px; left: 0px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
     placeholder="row #${rowId + 1}">
     `
     document.querySelector('.lines-container').innerHTML += strHTML;
@@ -121,8 +122,8 @@ function onRowDrag(elRow) {
         // ev.preventDefault();
         elRow.setAttribute('draggable', "true");
         // get the mouse cursor position at startup:
-        pos3 = elRow.left;
-        pos4 = elRow.top;
+        pos3 = ev.offsetLeft;
+        pos4 = ev.offsetTop;
         if(row.isFirst) {
             row.x += (row.size / 5);
             row.y += row.size - 5;
@@ -144,9 +145,10 @@ function onRowDrag(elRow) {
         pos3 = ev.clientX;
         pos4 = ev.clientY;
         // set the element's new position:
-        elRow.style.top = (elRow.offsetTop - pos2) + "px";
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
-        row.x = elRow.offsetLeft - pos1 + (row.size / 5);
+        elRow.style.top = (elRow.offsetTop - pos2) + "px";
+        console.log(elRow.offsetLeft, pos1, pos2, row.x, row.y)
+        row.x =  elRow.offsetLeft - pos1 + (gCanvas.width / 2);
         row.y = elRow.offsetTop - pos2 + row.size - 5;
         renderText()
     }

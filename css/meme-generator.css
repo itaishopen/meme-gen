@@ -5,12 +5,18 @@
 #my-canvas {
     border: 1px solid blue;
     position: absolute;
-    left: 25vw;
+    /* left: 25vw; */
 }
 
 .meme-container {
     position: relative;
     font-family: Impact, sans-serif;
+    left: 25vw
+}
+
+.lines-container {
+    position: relative;
+    /* left:25vw; */
 }
 
 .row {
