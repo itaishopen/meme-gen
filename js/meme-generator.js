@@ -71,6 +71,10 @@ function renderText() {
     img.src = gCurrentMeme.meme.url;
 }
 
+function onDownload() {
+    $('#download')[0].click();
+}
+
 function handleDownload() {
     var imgCanvas = document.createElement("canvas");
     imgCanvas.width = gCanvas.width;

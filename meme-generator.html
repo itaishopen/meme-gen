@@ -14,7 +14,9 @@
 </head>
 
 <body onload="drawCanvase()">
-    <header class="main-header flex"></header>
+    <header class="main-header flex">
+        <button class="back">Return</button>
+    </header>
     <div class="meme-container">
         <canvas id="my-canvas"></canvas>
         <div class="lines-container"></div>
@@ -43,8 +45,8 @@
                 <i class="fas fa-minus"></i>
             </div>
         </div>
-        <div class="control-item" onclick="handleDownload()">
-            <a id="download" data-tip="download canvas" download="my-meme.png"></a>
+        <div class="control-item" onclick="onDownload();">
+            <a id="download" data-tip="download canvas" download="my-meme.png" onclick="handleDownload()"></a>
             <i class="fas fa-file-download fa-lg"></i>
             <p>download</p>
         </div>
