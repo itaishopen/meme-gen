@@ -123,7 +123,7 @@ function onRowDrag(elRow) {
         // get the mouse cursor position at startup:
         pos3 = elRow.left;
         pos4 = elRow.top;
-        if(row.isFirst) {
+        if (row.isFirst) {
             row.x += (row.size / 5);
             row.y += row.size - 5;
             row.isFirst = false;
