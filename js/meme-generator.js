@@ -71,6 +71,7 @@ function handleDownload() {
     var destCtx = imgCanvas.getContext('2d');
     destCtx.drawImage(gCanvas, 0, 0)
     var img = imgCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    $('#download').attr('download', `${gCurrentMeme.meme.name}.png`);
     $('#download').attr('href', img);
 }
 
