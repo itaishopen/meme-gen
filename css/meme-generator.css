@@ -37,7 +37,8 @@ body {
 
 .meme-container {
     position: relative;
-    font-family: Impact, sans-serif;
+	font-family: Impact, sans-serif;
+	margin-bottom: 150px;
 }
 
 @media(min-width: 700px) {
