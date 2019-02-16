@@ -181,11 +181,10 @@ function renderTools(row) {
 `;
 }
 
-function onDeleteRow(elDeleteBtn) {
-    var rowIdx = elDeleteBtn.classList[1].replace(/^\D+/g, '');
-    var rowId = findRowId(rowIdx)
-    gCurrentMeme.rows.splice(rowId, 1);
-    $(`.row${rowIdx}`).remove();
+function onDeleteRow() {
+    var rowIdx = findRowId(gSelectedRow.id);
+    gCurrentMeme.rows.splice(rowIdx, 1);
+    $(`.row${gSelectedRow.id}`).remove();
     renderText();
 }
 

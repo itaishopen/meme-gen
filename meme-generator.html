@@ -15,7 +15,7 @@
 
 <body onload="drawCanvase()">
     <header class="main-header flex">
-        <button class="back">Return</button>
+        <button class="back" onclick="location.href='index.html'">Return</button>
     </header>
     <div class="meme-container">
         <canvas id="my-canvas"></canvas>
@@ -27,6 +27,10 @@
         <div class="control-item" onclick="onAddRow()">
             <i class="fas fa-plus-square"></i>
             <p>Add Line</p>
+        </div>
+        <div class="control-item" onclick="onDeleteRow()">
+            <i class="far fa-trash-alt"></i>
+            <p>Delete Line</p>
         </div>
         <div class="control-item " onclick="onOpenColorPalette()">
             <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged()"
