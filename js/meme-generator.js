@@ -1,4 +1,10 @@
-var gCanvas, gCtx, gCurrentMeme = { meme: null, rows: [] };
+var gCanvas;
+var gCtx;
+var gCurrentMeme = { 
+    meme: null, 
+    rows: [] 
+};
+var gSelectedRow;
 var rowNum = 0;
 
 function drawCanvase() {
@@ -82,8 +88,8 @@ function onAddRow(rowId = rowNum++) {
     
     let strHTML = `
     <input type="text" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
-    class="row row${rowId}" style="top:${row.y}px; left: ${row.x}px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
-    placeholder="row #${rowId + 1}">
+    class="row row${rowId}" style="top:${row.y}px; left: ${row.x}px; ;text-align: ${row.align}; 
+    max-width: ${gCanvas.width}px;" placeholder="row #${rowId + 1}">
     `
     document.querySelector('.lines-container').innerHTML += strHTML;
 }
@@ -111,6 +117,8 @@ function onAddRow(rowId = rowNum++) {
 // }
 
 function onRowDrag(elRow) {
+    console.log('drag');
+    
     var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''))
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     elRow.onclick = openContenteditable
@@ -238,12 +246,18 @@ function onTxtMove(elBtnMove) {
     renderText();
 }
 
+//var $focused = $(':focus');
+
 function onInsertTxt(elInputText) {
     var rowIdx = elInputText.classList[1].replace(/^\D+/g, '');
     var row = findRowByIdx(rowIdx);
     row.line = elInputText.value;
     // $(`.row${rowIdx}`).val(elInputText.value);
     renderText()
+}
+
+function onOpenColorPalette() {
+    $('.control-color-btn')[0].click();
 }
 
 function onColorChanged(elInputColor) {

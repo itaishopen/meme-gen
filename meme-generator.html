@@ -14,39 +14,48 @@
 </head>
 
 <body onload="drawCanvase()">
-    <header class="main-header flex">
-        <div class="control">
-            <div class="text-container">
-            </div>
-            <div class="modal">
-            </div>
-            <button onclick="onAddRow()"><i class="fas fa-plus-square"></i></button>
-            <a id="download" data-tip="download canvas" download="my-meme.png"><button type="button"
-                 onclick="handleDownload()"><i class="fas fa-file-download fa-lg"></i></button></a>
-            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'facebook')">
-                <input name="img" id="imgData" type="hidden" />
-                <button id="post" type="submit"><i class="fab fa-facebook-f fa-lg"></i></button>
-            </form>
-            <!-- <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'twitter')">
-                <input name="img" id="imgData" type="hidden" />
-                <button id="post" type="submit"><i class="fab fa-twitter fa-lg"></i></button>
-            </form>
-            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'pinterest')">
-                <input name="img" id="imgData" type="hidden" />
-                <button id="post" type="submit"><i class="fab fa-pinterest-p fa-lg"></i></button>
-            </form>
-            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'reddit')">
-                <input name="img" id="imgData" type="hidden" />
-                <button id="post" type="submit"><i class="fab fa-reddit-alien fa-lg"></i></button>
-            </form> -->
-        </div>
-    </header>
+    <header class="main-header flex"></header>
     <div class="meme-container">
-        <canvas id="my-canvas" onclick="canvasClicked(event)"></canvas>
+        <canvas id="my-canvas"></canvas>
         <div class="lines-container"></div>
     </div>
     <div id="fb-root"></div>
 
+    <footer class="control">
+        <div class="control-item" onclick="onAddRow()">
+            <i class="fas fa-plus-square"></i>
+            <p>Add Line</p>
+        </div>
+        <div class="control-item" onclick="onOpenColorPalette()">
+            <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged(this)" hidden></i>
+            <p>Change Color</p>
+        </div>
+        <div class="control-item" onclick="handleDownload()">
+            <a id="download" data-tip="download canvas" download="my-meme.png"></a>
+            <i class="fas fa-file-download fa-lg"></i>
+            <p>download</p>
+        </div>
+        <button class="control-item" id="post" type="submit" form="frmShare">
+            <form id="frmShare" action="" method="POST" enctype="multipart/form-data"
+                onsubmit="uploadImg(this, event, 'facebook')">
+                <input name="img" id="imgData" type="hidden" />
+                <i class="fab fa-facebook-f fa-lg"></i>
+                <p>Share</p>
+            </form>
+        </button>
+        <!-- <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'twitter')">
+            <input name="img" id="imgData" type="hidden" />
+            <button id="post" type="submit"><i class="fab fa-twitter fa-lg"></i></button>
+        </form>
+        <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'pinterest')">
+            <input name="img" id="imgData" type="hidden" />
+            <button id="post" type="submit"><i class="fab fa-pinterest-p fa-lg"></i></button>
+        </form>
+        <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'reddit')">
+            <input name="img" id="imgData" type="hidden" />
+            <button id="post" type="submit"><i class="fab fa-reddit-alien fa-lg"></i></button>
+        </form> -->
+    </footer>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" alt="lib/jquery/jquery.js"></script>
