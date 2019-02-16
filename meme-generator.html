@@ -27,14 +27,15 @@
             <p>Add Line</p>
         </div>
         <div class="control-item" onclick="onOpenColorPalette()">
-            <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged(this)" hidden></i>
+            <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged(this)"
+                    hidden></i>
             <p>Change Color</p>
         </div>
         <div class="control-item" onclick="handleDownload()">
             <a id="download" data-tip="download canvas" download="my-meme.png">
-            <i class="fas fa-file-download fa-lg"></i>
-            <p>download</p>
-        </a>
+                <i class="fas fa-file-download fa-lg"></i>
+                <p>download</p>
+            </a>
         </div>
         <button class="control-item" id="post" type="submit" form="frmShare">
             <form id="frmShare" action="" method="POST" enctype="multipart/form-data"
