@@ -75,34 +75,36 @@ function createRow(num) {
         case 0:
             return {
                 id: `${num}`,
-                line: 'first line',
+                line: '',
                 size: 60,
                 align: 'center',
                 color: '#ffffff',
                 stroke: 'black',
-                x: gCanvas.width / 2,
-                y: 60,
+                x: (gCanvas.width / 2) - 30,
+                y: 0,
                 isShadow: false,
                 font: 'impact',
+                isFirst: true
             }
         case 1:
             return {
                 id: `${num}`,
-                line: 'second line',
+                line: '',
                 size: 60,
                 align: 'center',
                 color: '#ffffff',
                 stroke: 'black',
-                x: gCanvas.width / 2,
-                y: gCanvas.height - 20,
+                x: (gCanvas.width / 2) - 30,
+                y: gCanvas.height - 60,
                 isShadow: false,
                 font: 'impact',
+                isFirst: true
             }
         default:
         if ((60 + (60 * (num - 1))) < gCanvas.height) {
             return {
                 id: `${num}`,
-                line: 'new line',
+                line: ``,
                 size: 60,
                 align: 'center',
                 color: '#ffffff',
@@ -111,11 +113,12 @@ function createRow(num) {
                 y: 60 + (60 * (num - 1)),
                 isShadow: false,
                 font: 'impact',
+                isFirst: true
             }
         } else {
             return {
                 id: `${num}`,
-                line: 'new line',
+                line: '',
                 size: 60,
                 align: 'center',
                 color: '#ffffff',
@@ -124,6 +127,7 @@ function createRow(num) {
                 y: gCanvas.height / 2,
                 isShadow: false,
                 font: 'impact',
+                isFirst: true
             }
         }
     }

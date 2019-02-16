@@ -5,6 +5,7 @@
 #my-canvas {
     border: 1px solid blue;
     position: absolute;
+    left: 25vw;
 }
 
 .meme-container {
@@ -43,3 +44,9 @@
 .d-block {
     display: block;
 }
+
+input[type="text"] {
+    position: absolute;
+    align-content: center;
+    color: transparent;
+} 
