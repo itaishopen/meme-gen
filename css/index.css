@@ -38,6 +38,14 @@ body {
     flex: 1;
 }
 
+.tag-item {
+    cursor: pointer;
+    margin: 2px;
+    background-color: #ed254e;
+    padding: 3px 13px;
+    border-radius: 8px;
+}
+
 .card {
     cursor: pointer;
     color: white;

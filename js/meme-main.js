@@ -3,7 +3,6 @@ var gCurrentMemes, gJumble, gJumbleInput, isFirstJumble = true;
 const JUMBLE_KEY = 'meme';
 
 function init() {
-    debugger;
     gCurrentMemes = createMemes();
     gJumbleInput = loadFromLocalStorage(JUMBLE_KEY)
     if (!gJumbleInput || gJumbleInput.length === 0) {
@@ -114,7 +113,8 @@ function renderKeywords() {
     var elKeys = document.querySelector('.keywords-container');
     var strHtml = '';
     gJumble.forEach(function (value, key) {
-        strHtml += `<a href="#" onclick="onClickJumble('${key}')" style="font-size:${value * 2}px";> ${key} </a>`
+        strHtml += `<div class="tag-item" href="#" onclick="onClickJumble('${key}')" 
+        style="font-size:${value * 0.08}rem";> #${key}</div>`
     });
     elKeys.innerHTML = strHtml;
 }
