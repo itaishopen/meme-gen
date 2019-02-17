@@ -15,7 +15,7 @@ function init() {
 
 function renderGallery(pageId) {
     let strUpload = `<li>
-        <div class="hexagon card">
+        <div class="hexagon card" onclick="openModal()">
             <i class="fas fa-file-upload"></i>
             <p>Upload image</p>
         </div>
@@ -144,4 +144,8 @@ function onFileLoad() {
 function onUrlLoad() {
 
 
+}
+
+function openModal() {
+    
 }
