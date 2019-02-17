@@ -1,13 +1,11 @@
 /* Base */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
-/* @import url('https://fonts.googleapis.com/css?family=Lobster'); */
+@import url('https://fonts.googleapis.com/css?family=Lobster');
 @import url('https://fonts.googleapis.com/css?family=Oswald:700');
 @import url('https://fonts.googleapis.com/css?family=Coiny');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
 
-@font-face {
-    font-family: "Lobster";
-    src: url("fonts/lobster/Lobster-Regular.ttf");
-}
 
 * {
     box-sizing: border-box;
@@ -44,6 +42,10 @@ i {
 
 .space-evenly {
     justify-content: space-evenly;
+}
+
+.space-between {
+    justify-content: space-between;
 }
 
 .space-center {

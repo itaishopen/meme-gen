@@ -203,9 +203,9 @@ function closeModal() {
     $('.uploadModal').addClass('hide');
 }
 
-$(".form-head").click(function() {
+$(".form-head").click(function () {
     if (
-      $(this).closest('.form-group').attr('id') == 'help') {
+        $(this).closest('.form-group').attr('id') == 'help') {
         $('.form-group').attr('id', 'name');
         $('.icon-action').addClass('back');
     }
@@ -216,9 +216,9 @@ $(".form-head").click(function() {
     }
 });
 
-$(".form-action").click(function() {
+$(".form-action").click(function () {
     console.log('hello');
-    
+
     var form_id = $('.form-group').attr('id');
     $('.icon-action').addClass('back');
     if ($('#control-' + form_id).val() != '') {
@@ -268,3 +268,24 @@ $('input').keyup(function () {
         $('.icon-action').addClass('back');
     }
 })
+
+
+function onSendEmail(ev) {
+    ev.preventDefault();
+
+    var $name = $('input[name="name"]').val();
+    var $email = $('input[name="email"]').val();
+    var $body = $('textarea[name="body"]').val();
+
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=adi.binen@gmail.com&su=${$name}&body=${$body}&bcc=${$email}&tf=1`);
+
+    clearContactMe();
+}
+
+function clearContactMe() {
+    $('form input').each(function () {
+        $(this).val('');
+    });
+    $('form input').first().focus();
+    $('form textarea').val('');
+}
