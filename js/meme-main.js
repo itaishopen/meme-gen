@@ -1,13 +1,17 @@
 'use strict'
 var gCurrentMemes, gJumble, gJumbleInput, isFirstJumble = true;
-const MEME_KEY = 'meme';
+const JUMBLE_KEY = 'meme';
 
 function init() {
     gCurrentMemes = createMemes();
-    var tags = combineTags(gCurrentMemes);
-    var firstJumble = mostRepeatedTags(tags);
-    makeJumble(firstJumble);
-    console.log(gJumbleInput)
+    gJumbleInput = loadFromLocalStorage(JUMBLE_KEY)
+    if (!gJumbleInput || gJumbleInput.length === 0) {
+        var tags = combineTags(gCurrentMemes);
+        var firstJumble = mostRepeatedTags(tags);
+        gJumbleInput = makeJumble(firstJumble);
+        saveToLocalStorage(JUMBLE_KEY, gJumbleInput);
+    }
+    gJumble = mostRepeatedTags(gJumbleInput);
     let pageIdx = getCurrPageId();
     renderKeywords()
     renderGallery(pageIdx);
@@ -66,13 +70,14 @@ function onClickJumble(searchVal) {
 }
 
 function onMemeChose(memeId) {
-    // let searchVal = $('.search-input').val();
-    // if (searchVal) {
-    //     gJumbleInput.push(searchVal.trim())
-    //     console.log(gJumbleInput)
-    // }
+    let searchVal = $('.search-input').val();
+    if (searchVal) {
+        gJumbleInput.push(searchVal.trim())
+        saveToLocalStorage(JUMBLE_KEY, gJumbleInput);
+    }
     var meme = findMemeById(memeId);
     meme.rate += 1;
+    saveToLocalStorage(MEMES_KEY, gCurrentMemes);
     window.location.assign(`meme-generator.html?${memeId}`);
 
 }
@@ -131,7 +136,6 @@ function onFileLoad() {
             memeWidth = img.width;
             memeHeight = img.height;
             let meme = createMeme(memeId, memeName, reader.result, memeWidth, memeHeight, ['user upload'])
-            console.log(meme)
             addMeme(meme)
             onMemeChose(memeId)
         }
