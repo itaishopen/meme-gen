@@ -148,10 +148,9 @@ function onFileLoad() {
 }
 
 function handleEnter(elInputURL, ev) {
-    ev.preventDefault();
     var keycode = (ev.keyCode ? ev.keyCode : ev.which);
     if (keycode == '13') {
-        console.log('hello')
+        ev.preventDefault();
         onUrlLoad(elInputURL);
     }
 }
