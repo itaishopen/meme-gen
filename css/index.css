@@ -32,6 +32,9 @@ body {
 
 .search-box {
     flex: 1;
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
 }
 
 .keywords {
@@ -40,7 +43,10 @@ body {
 
 .search-input {
     height: 30px;
-    width: 70%
+    width: 70%;
+    padding: 3px 6px;
+    border: none;
+    border-radius: 3px;
 }
 
 .tag-item {
@@ -49,6 +55,10 @@ body {
     background-color: #ed254e;
     padding: 3px 13px;
     border-radius: 8px;
+    transition: .3s;
+}
+.tag-item:hover {
+  opacity: .7;
 }
 
 .card {
@@ -90,6 +100,7 @@ body {
 .pagination {
     display: inline-block;
     justify-content: center;
+    margin: 50px auto;
     position: relative;
     bottom: 0;
 }
@@ -199,7 +210,6 @@ body {
     content: "";
     display: block;
     clear: both;
-    padding-bottom: 100px;
 }
 
 .gallery li {
@@ -243,14 +253,16 @@ body {
     margin-left: 0.5%;
 }
 
+
+/* contact us */
 .form-group {
-    width: 360px;
-    height: 70px;
-    background: #fff;
-    position: absolute;
-    border-radius: 50px;
-  }
-  
+      width: 360px;
+      height: 70px;
+      background: #fff;
+      position: absolute;
+      border-radius: 50px;
+    }
+    
   .form-group .form-body {
     height: 70px;
     overflow: hidden;
@@ -486,7 +498,6 @@ body {
   footer {
       display: flex;
       height: 100px;
-      width: 100vh;
   }
 
   .container-form {
