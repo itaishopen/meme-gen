@@ -26,40 +26,29 @@
     <footer class="control">
         <div class="control-item" onclick="onAddRow()">
             <i class="fas fa-plus-square"></i>
-            <p>Add Line</p>
         </div>
         <div class="control-item" onclick="onDeleteRow()">
             <i class="far fa-trash-alt"></i>
-            <p>Delete Line</p>
         </div>
         <div class="control-item " onclick="onOpenColorPalette()">
             <i class="fas fa-palette"><input class="control-color-btn" type="color" onchange="onColorChanged()"
                     hidden></i>
-            <p>Change Color</p>
         </div>
-        <div class="control-item changeFontSize" onmouseover="addFontSize()">
-            <h6>&#128474;</h6>
-            <p>Font Size</p>
+        <div class="control-item" onclick="onChangeSize('larger')">
+            <i class="fas fa-plus"></i>
         </div>
-        <div class="control-item fontSizing flex hide" onmouseleaves="hideFontSize()">
-            <div class="changeSize" onclick="onChangeSize('larger')">
-                <i class="fas fa-plus"></i>
-            </div>
-            <div class="changeSize" onclick="onChangeSize('smaller')">
-                <i class="fas fa-minus"></i>
-            </div>
+        <div class="control-item" onclick="onChangeSize('smaller')">
+            <i class="fas fa-minus"></i>
         </div>
         <div class="control-item" onclick="onDownload();">
             <a id="download" data-tip="download canvas" download="my-meme.png" onclick="handleDownload()"></a>
             <i class="fas fa-file-download fa-lg"></i>
-            <p>download</p>
         </div>
         <button class="control-item" id="post" type="submit" form="frmShare">
             <form id="frmShare" action="" method="POST" enctype="multipart/form-data"
                 onsubmit="uploadImg(this, event, 'facebook')">
                 <input name="img" id="imgData" type="hidden" />
                 <i class="fab fa-facebook-f fa-lg"></i>
-                <p>Share</p>
             </form>
         </button>
         <!-- <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event, 'twitter')">
