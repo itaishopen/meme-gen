@@ -66,14 +66,14 @@ function onClickJumble(searchVal) {
 }
 
 function onMemeChose(memeId) {
-    let searchVal = $('.search-input').val();
-    if (searchVal) {
-        gJumbleInput.push(searchVal.trim())
-        console.log(gJumbleInput)
-    }
+    // let searchVal = $('.search-input').val();
+    // if (searchVal) {
+    //     gJumbleInput.push(searchVal.trim())
+    //     console.log(gJumbleInput)
+    // }
     var meme = findMemeById(memeId);
     meme.rate += 1;
-    // window.location.assign(`meme-generator.html?${memeId}`);
+    window.location.assign(`meme-generator.html?${memeId}`);
 
 }
 
@@ -105,7 +105,6 @@ function mostRepeatedTags(tags) {
 
 function renderKeywords() {
     var elKeys = document.querySelector('.keywords-container');
-    console.log('elKeywordsContainer', elKeys);
     var strHtml = '';
     gJumble.forEach(function (value, key) {
         strHtml += `<a href="#" onclick="onClickJumble('${key}')" style="font-size:${value * 2}px";> ${key} </a>`
@@ -131,11 +130,12 @@ function onFileLoad() {
         img.onload = function () {
             memeWidth = img.width;
             memeHeight = img.height;
+            let meme = createMeme(memeId, memeName, reader.result, memeWidth, memeHeight, ['user upload'])
+            console.log(meme)
+            addMeme(meme)
+            onMemeChose(memeId)
         }
         img.src = reader.result;
-        let meme = createMeme(memeId, memeName, img.src, memeWidth, memeHeight, ['user upload'])
-        addMeme(meme)
-        onMemeChose(memeId)
     }, false);
 
     if (file) reader.readAsDataURL(file);

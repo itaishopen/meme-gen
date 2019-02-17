@@ -27,7 +27,8 @@ function createMeme(id, name, url, width, height, tags = []) {
 }
 
 function findMemeById(memeId) {
-    return getMemes().find(function (meme) {
+    var memes = loadFromLocalStorage(MEMES_KEY);
+    return memes.find(function (meme) {
         return meme.id === memeId;
     });
 }
