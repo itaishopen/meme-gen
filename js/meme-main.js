@@ -1,12 +1,13 @@
 'use strict'
-var gCurrentMemes;
+var gCurrentMemes, gJumble;
 const MEME_KEY = 'meme';
 
 function init() {
     gCurrentMemes = createMemes();
     var tags = combineTags(gCurrentMemes);
-    var sorted = mostRepeatedTags(tags);
+    gJumble = mostRepeatedTags(tags);
     let pageIdx = getCurrPageId();
+    renderKeywords()
     renderGallery(pageIdx);
 }
 
@@ -49,6 +50,11 @@ function onSearchImg(elInputSearch) {
     setCurrPageId(0);
 }
 
+function onClickJumble(searchVal) {
+    setSearchPer(searchVal);
+    setCurrPageId(0);
+}
+
 function onMemeChose(memeId) {
     var meme = findMemeById(memeId);
     meme.rate += 1;
@@ -75,21 +81,27 @@ function mostRepeatedTags(tags) {
         if (v < v2) return 1;
         return 0; 
       }));
-    return sorted;
+    var iterator1 = sorted.entries();
+    var items = new Map();
+    for (var i = 0; i < 5; i++) {
+        let cell = iterator1.next().value
+        items.set(cell[0], cell[1])
+    }
+    return items;
 }
 
 function renderKeywords() {
     var elKeys = document.querySelector('.keywords-container');
     console.log('elKeywordsContainer', elKeys);
     var strHtml = '';
-    for (var key in gKeywordCountMap) {
-        var fontSize = getFontSize(gKeywordCountMap[key]);
-        console.log('keyyyy', key, 'gKeywordCount[key]', gKeywordCountMap[key]);
-        strHtml += '<a href="#" onclick="filterImgs(this)" style="font-size:' + fontSize + 'px";>' + key + '</a>'
-    }
+    gJumble.forEach(function(value, key ) {
+        // var fontSize = getFontSize(value);
+        // console.log('keyyyy', key, 'gKeywordCount[key]', value);
+        strHtml += `<a href="#" onclick="onClickJumble('${key}')" style="font-size:${value*2}px";> ${key} </a>`
+    });
     elKeys.innerHTML = strHtml;
 }
 
 function getFontSize(num) {
-    return 20 + 20 * num
+    return 5 * num
 }
