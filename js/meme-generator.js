@@ -5,6 +5,7 @@ var gCurrentMeme = {
     meme: null,
     rows: []
 };
+var gImage;
 var gSelectedRow;
 var rowNum = 0;
 var tryRender
@@ -26,6 +27,7 @@ function drawCanvase() {
     createCanvaseSize()
     $('.meme-container').css({ 'width': gCanvas.width, 'height': gCanvas.height })
     gCtx = gCanvas.getContext('2d');
+    // drawImageSmall(gCurrentMeme.meme.url)
     gCurrentMeme.img = new Image;
     gCurrentMeme.img.onload = function () {
         gCtx.drawImage(gCurrentMeme.img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
@@ -53,10 +55,8 @@ function createCanvaseSize() {
 }
 
 function renderText() {
-    var img = gCurrentMeme.img
-    img.onload = function() {
-        gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
-    }
+    var img = gCurrentMeme.img;
+    gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
     var rows = gCurrentMeme.rows;
     rows.forEach(function renderLine(row) {
         gCtx.font = row.size + 'px ' + row.font;
@@ -200,50 +200,16 @@ function onRowDrag(elRow) {
     }
 }
 
-
-function renderTools(row) {
-    var rowId = row.id;
-    return `<div class="row-item row-item${rowId}">
-    <input class="color color${rowId}" type="color" value="${row.color}" onchange="onColorChanged(this)">
-        <button class="up up${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-up"></i></button>
-        <button class="down down${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-down"></i></button>
-        <button class="right right${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-right"></i></button>
-        <button class="left left${rowId}" onclick="onTxtMove(this)"><i class="fas fa-arrow-left"></i></button>
-        <button class="larger larger${rowId}" onclick="onChangeSize(this)"><i class="fas fa-plus"></i></button>
-        <button class="smaller smaller${rowId}" onclick="onChangeSize(this)"><i class="fas fa-minus"></i></button>
-        <button class="align-left align-left${rowId}" onclick="onChangeAlign(this, 'right')"><i class="fas fa-align-left"></i></button>
-        <button class="align-center align-center${rowId}" onclick="onChangeAlign(this, 'center')"><i class="fas fa-align-justify"></i></button>
-        <button class="align-right align-right${rowId}" onclick="onChangeAlign(this, 'left')"><i class="fas fa-align-right"></i></button>
-        <button class="delete delete${rowId}" onclick="onDeleteRow(this)"><i class="fas fa-trash-alt fa-lg"></i></button>
-</div>
-`;
-}
-
 function onDeleteRow() {
+    if (!gSelectedRow) return;
     var rowIdx = findRowId(gSelectedRow.id);
     gCurrentMeme.rows.splice(rowIdx, 1);
     $(`.row${gSelectedRow.id}`).remove();
     renderText();
 }
 
-function onChangeAlign(elAlign, direction) {
-    var rowIdx = elAlign.classList[1].replace(/^\D+/g, '');
-    var row = findRowByIdx(rowIdx);
-    row.align = direction;
-    renderText();
-}
-
-function addFontSize() {
-    $('.changeFontSize').addClass('hide');
-    $('.fontSizing').removeClass('hide');
-}
-
-function hideFontSize() {
-    $('.fontSizing').addClass('hide');
-    $('.changeFontSize').removeClass('hide');
-}
-
 function onChangeSize(changeSize) {
+    if (!gSelectedRow) return;
     switch (changeSize) {
         case 'larger':
             if (gSelectedRow.size > 120) return;
@@ -252,29 +218,6 @@ function onChangeSize(changeSize) {
         case 'smaller':
             if (gSelectedRow.size < 6) return;
             gSelectedRow.size -= 5;
-            break;
-        default:
-            break;
-    }
-    renderText();
-}
-
-function onTxtMove(elBtnMove) {
-    var direction = elBtnMove.classList[0];
-    var rowIdx = elBtnMove.classList[1].slice(-1);
-    var row = findRowByIdx(rowIdx);
-    switch (direction) {
-        case 'up':
-            row.y = row.y - 10;
-            break;
-        case 'down':
-            row.y = row.y + 10;
-            break;
-        case 'right':
-            row.x = row.x + 10;
-            break;
-        case 'left':
-            row.x = row.x - 10;
             break;
         default:
             break;
@@ -294,36 +237,20 @@ function onColorChanged() {
 }
 
 function onChangeFont(elSelect) {
-    if (!gSelectedRow) return;
     var fontFamily = elSelect.value;
     gSelectedRow.font = fontFamily;
-    console.log(gSelectedRow)
-    // debugger
     renderText();
-    // setTimeout(renderText, 30)
+    setTimeout(renderText, 30)
     closeModal();
 }
 
 function openModal() {
+    if (!gSelectedRow) return;
     $('.fontModal').removeClass('hide');
 }
 
 function closeModal() {
     $('.fontModal').addClass('hide');
-}
-
-function canvasClicked(ev) {
-    var clickedRow = gCurrentMeme.rows.find((row) => {
-        return (
-            ev.offsetX > row.x - 50 &&
-            ev.offsetX < row.x + 50 &&
-            ev.offsetY > (row.y - row.size) &&
-            ev.offsetY < row.y
-        )
-    })
-
-    if (clickedRow) openModal(ev, clickedRow)
-    else closeModal()
 }
 
 function findRowByIdx(rowIdx) {

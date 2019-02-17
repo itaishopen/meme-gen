@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Lobster";
+    src: url("fonts/lobster/Lobster-Regular.ttf");
+}
+
 body {
 	background-color: #30343f;
 	color: white;
