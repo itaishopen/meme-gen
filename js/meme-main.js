@@ -147,5 +147,9 @@ function onUrlLoad() {
 }
 
 function openModal() {
-    
+    $('.uploadModal').removeClass('hide');
+}
+
+function closeModal() {
+    $('.uploadModal').addClass('hide');
 }
