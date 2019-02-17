@@ -160,9 +160,10 @@ function onFileLoad() {
         img.onload = function () {
             memeWidth = img.width;
             memeHeight = img.height;
-            let meme = createMeme(memeId, memeName, reader.result, memeWidth, memeHeight, ['user upload'])
-            addMeme(meme)
-            onMemeChose(memeId)
+            let meme = createMeme(memeId, memeName, reader.result, memeWidth, memeHeight, ['user upload']);
+            gCurrentMeme.push(meme);
+            addMeme(meme);
+            onMemeChose(memeId);
         }
         img.src = reader.result;
     }, false);
@@ -189,7 +190,7 @@ function onUrlLoad(elInputURL) {
         memeWidth = img.width;
         memeHeight = img.height;
         let meme = createMeme(memeId, memeName, elInputURL.value.trim(), memeWidth, memeHeight, ['user upload'])
-        console.log(meme)
+        gCurrentMeme.push(meme);
         addMeme(meme)
         onMemeChose(memeId)
     }
