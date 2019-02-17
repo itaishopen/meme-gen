@@ -27,6 +27,7 @@ function createMeme(id, name, url, width, height, tags = []) {
 }
 
 function findMemeById(memeId) {
+    gCurrentMemes = loadFromLocalStorage(MEMES_KEY);
     return gCurrentMemes.find(function (meme) {
         return meme.id === memeId;
     });
