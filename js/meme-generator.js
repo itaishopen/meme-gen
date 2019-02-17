@@ -60,6 +60,7 @@ function createCanvaseSize() {
 
 function renderText() {
     var img = gCurrentMeme.img;
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
     var rows = gCurrentMeme.rows;
     rows.forEach(function renderLine(row) {
@@ -244,7 +245,7 @@ function onChangeFont(elSelect) {
     var fontFamily = elSelect.value;
     gSelectedRow.font = fontFamily;
     renderText();
-    setTimeout(renderText, 30)
+    // setTimeout(renderText, 30)
     closeModal();
 }
 
