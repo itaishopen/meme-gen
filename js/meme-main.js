@@ -111,3 +111,31 @@ function renderKeywords() {
 function getFontSize(num) {
     return 5 * num
 }
+
+function onFileLoad() {
+    let $elFile = $('#image_uploads');
+    let file = $elFile[0].files[0];
+    let reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+        let memeId = makeId();
+        let memeName = `user${memeId}`;
+        let memeWidth;
+        let memeHeight;
+        let img = new Image;
+        img.onload = function() {
+            memeWidth = img.width;
+            memeHeight = img.height;
+        }
+        img.src = reader.result;
+        addMeme({id: memeId, name: memeName, url: img.src, width: memeWidth, height: memeHeight, rate: 1, tags: ['user upload']})
+        onMemeChose(memeId)
+    }, false);
+
+    if (file) reader.readAsDataURL(file);
+}
+
+function onUrlLoad() {
+
+
+}

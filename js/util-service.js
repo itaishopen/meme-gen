@@ -1,9 +1,15 @@
 function makeId() {
-    let length = 6;
+    let length = 10;
     let txt = '';
     let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < length; i++) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    var find = getMemes().findIndex(function(meme) {
+        return txt === meme.id
+    })
+    if (find === -1) {
+        makeId();
     }
     return txt;
 }

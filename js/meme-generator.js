@@ -322,3 +322,4 @@ function findRowId(rowId) {
         return rowId === currRow.id;
     });
 }
+
