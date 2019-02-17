@@ -13,7 +13,10 @@ function init() {
 
 function renderGallery(pageId) {
     let strUpload = `<li>
-        <div class="hexagon card"></div>
+        <div class="hexagon card">
+            <i class="fas fa-file-upload"></i>
+            <p>Upload image</p>
+        </div>
         </li>`
     let memes = memesToShow(pageId)
     let strGallery = memes.map(function (meme) {

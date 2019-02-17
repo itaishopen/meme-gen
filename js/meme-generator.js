@@ -91,7 +91,7 @@ function onAddRow(rowId = rowNum++) {
     gCurrentMeme.rows.push(row);
 
     let strHTML = `
-    <input type="text" ontouchmove="onRowDrag(this)" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
+    <input type="text" ontouchmove="dragTouch(this)" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
     class="row row${rowId}" style="top:${row.y}px; left: 0px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
     placeholder="row #${rowId + 1}">
     `
@@ -107,7 +107,50 @@ function onInsertTxt(elInputText) {
     renderText()
 }
 
+function dragTouch(elRow) {
+    var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''));    
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    gSelectedRow = row;
+    elRow.setAttribute('draggable', "true");
 
+    pos3 = event.touches[0].pageX;
+    pos4 = event.touches[0].pageY;
+
+    pos1 =  pos3 - getOffsetLeft(gCanvas);
+    pos2 = pos4 - getOffsetTop(gCanvas);
+
+    pos3 = event.touches[0].pageX;
+    pos4 = event.touches[0].pageY;
+
+    elRow.style.left = (pos1 - (gCanvas.width/2)) + "px";
+    elRow.style.top = (pos2 - (row.size/2)) + "px";
+    row.x = pos1;
+    row.y = pos2 + (row.size / 2);
+    renderText()    
+}
+
+function getOffsetLeft( elem )
+{
+    var offsetLeft = 0;
+    do {
+      if ( !isNaN( elem.offsetLeft ) )
+      {
+          offsetLeft += elem.offsetLeft;
+      }
+    } while( elem = elem.offsetParent );
+    return offsetLeft;
+}
+function getOffsetTop( elem )
+{
+    var offsetTop = 0;
+    do {
+      if ( !isNaN( elem.offsetTop ) )
+      {
+        offsetTop += elem.offsetTop;
+      }
+    } while( elem = elem.offsetParent );
+    return offsetTop;
+}
 
 function onRowDrag(elRow) {
     var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''))
@@ -115,11 +158,7 @@ function onRowDrag(elRow) {
     elRow.onclick = openContenteditable
     elRow.onmousedown = dragMouseDown;
 
-    
-
-    function dragMouseDown(ev) {
-        console.log('enter');
-        
+    function dragMouseDown(ev) {        
         // ev = ev || window.event;
         // ev.preventDefault();
         gSelectedRow = row;
@@ -134,35 +173,10 @@ function onRowDrag(elRow) {
         }
         renderText()
         
-        document.ontouchmove = dragTouch;
-        console.log('hello')
         document.onmouseup = closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
     }
-
-
-
-    function dragTouch(ev) {
-        console.log('touch');
-        
-        var x = ev.touches[0].clientX;
-        var y = ev.touches[0].clientY;
-        var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''));
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        gSelectedRow = row;
-        elRow.setAttribute('draggable', "true");
-    
-        pos1 = pos3 - x;
-        pos2 = pos4 - y;
-        pos3 = x;
-        pos4 = y;
-    
-        elRow.style.left = (elRow.offsetLeft - pos1) + "px";
-        elRow.style.top = (elRow.offsetTop - pos2) + "px";
-    }
-
-
 
     function elementDrag(ev) {
         ev = ev || window.event;
