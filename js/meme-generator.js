@@ -1,8 +1,8 @@
 var gCanvas;
 var gCtx;
-var gCurrentMeme = { 
-    meme: null, 
-    rows: [] 
+var gCurrentMeme = {
+    meme: null,
+    rows: []
 };
 var gSelectedRow;
 var rowNum = 0;
@@ -14,14 +14,14 @@ function drawCanvase() {
     gCurrentMeme.meme = findMemeById(memeId);
     if (!gCurrentMeme.meme) return;
     gCanvas = document.getElementById('my-canvas');
-    $('#my-canvas').bind('contextmenu', function(e){
+    $('#my-canvas').bind('contextmenu', function (e) {
         return false;
     });
-    $('.lines-container').bind('contextmenu', function(e){
+    $('.lines-container').bind('contextmenu', function (e) {
         return false;
     });
     createCanvaseSize()
-    $('.meme-container').css({'width': gCanvas.width, 'height': gCanvas.height})
+    $('.meme-container').css({ 'width': gCanvas.width, 'height': gCanvas.height })
     gCtx = gCanvas.getContext('2d');
     var img = new Image;
     img.onload = function () {
@@ -38,7 +38,7 @@ function createCanvaseSize() {
         gCanvas.width = $('body').width() - 50;
         gCanvas.height = ((($('body').width() - 50) * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
     } else {
-        
+
         if (gCurrentMeme.meme.width > 500) {
             gCanvas.width = 500;
             gCanvas.height = ((500 * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
@@ -89,9 +89,9 @@ function handleDownload() {
 function onAddRow(rowId = rowNum++) {
     var row = createRow(rowId);
     gCurrentMeme.rows.push(row);
-    
+
     let strHTML = `
-    <input type="text" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
+    <input type="text" ontouchmove="onRowDrag(this)" onmouseover="onRowDrag(this)" onkeyup="onInsertTxt(this)"
     class="row row${rowId}" style="top:${row.y}px; left: 0px; ;text-align: ${row.align}; max-width: ${gCanvas.width}px;" 
     placeholder="row #${rowId + 1}">
     `
@@ -107,13 +107,19 @@ function onInsertTxt(elInputText) {
     renderText()
 }
 
-function onRowDrag(elRow) {    
+
+
+function onRowDrag(elRow) {
     var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''))
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     elRow.onclick = openContenteditable
     elRow.onmousedown = dragMouseDown;
 
+    
+
     function dragMouseDown(ev) {
+        console.log('enter');
+        
         // ev = ev || window.event;
         // ev.preventDefault();
         gSelectedRow = row;
@@ -121,16 +127,42 @@ function onRowDrag(elRow) {
         // get the mouse cursor position at startup:
         pos3 = ev.offsetLeft;
         pos4 = ev.offsetTop;
-        if(row.isFirst) {
+        if (row.isFirst) {
             row.x += (row.size / 5);
             row.y += row.size - 5;
             row.isFirst = false;
         }
         renderText()
+        
+        document.ontouchmove = dragTouch;
+        console.log('hello')
         document.onmouseup = closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
     }
+
+
+
+    function dragTouch(ev) {
+        console.log('touch');
+        
+        var x = ev.touches[0].clientX;
+        var y = ev.touches[0].clientY;
+        var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''));
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        gSelectedRow = row;
+        elRow.setAttribute('draggable', "true");
+    
+        pos1 = pos3 - x;
+        pos2 = pos4 - y;
+        pos3 = x;
+        pos4 = y;
+    
+        elRow.style.left = (elRow.offsetLeft - pos1) + "px";
+        elRow.style.top = (elRow.offsetTop - pos2) + "px";
+    }
+
+
 
     function elementDrag(ev) {
         ev = ev || window.event;
@@ -144,7 +176,7 @@ function onRowDrag(elRow) {
         // set the element's new position:
         elRow.style.left = (elRow.offsetLeft - pos1) + "px";
         elRow.style.top = (elRow.offsetTop - pos2) + "px";
-        row.x =  elRow.offsetLeft - pos1 + (gCanvas.width / 2);
+        row.x = elRow.offsetLeft - pos1 + (gCanvas.width / 2);
         row.y = elRow.offsetTop - pos2 + row.size - 5;
         renderText()
     }

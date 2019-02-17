@@ -23,6 +23,8 @@ function renderGallery(pageId) {
         `
     });
     $('.gallery').html(strGallery.join(''));
+
+    
     let leftArrow = '&laquo;';
     let rightArrow = '&raquo;';
     if ($('body').hasClass('rtl')) {
