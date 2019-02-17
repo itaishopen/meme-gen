@@ -20,7 +20,7 @@ function init() {
 
 function renderGallery(pageId) {
     let strUpload = `
-        <li>
+    <li>
         <div class="hexagon card" onclick="openModal()">
             <i class="fas fa-file-upload"></i>
             <p>Upload image</p>
@@ -147,8 +147,27 @@ function onFileLoad() {
     if (file) reader.readAsDataURL(file);
 }
 
-function onUrlLoad() {
+function handleEnter(elInputURL, ev) {
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        onUrlLoad(elInputURL);
+    }
+}
 
+function onUrlLoad(elInputURL) {
+    let memeId = makeId();
+        let memeName = `user${memeId}`;
+        let memeWidth;
+        let memeHeight;
+        let img = new Image;
+        img.onload = function () {
+            memeWidth = img.width;
+            memeHeight = img.height;
+            let meme = createMeme(memeId, memeName, elInputURL, memeWidth, memeHeight, ['user upload'])
+            addMeme(meme)
+            onMemeChose(memeId)
+        }
+        img.src = elInputURL;
 
 }
 
