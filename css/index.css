@@ -1,5 +1,6 @@
 body {
     background-color: #424650d1;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* header */
@@ -37,16 +38,23 @@ body {
     width: 100%;
 }
 
+.keywords-container {
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
 .keywords {
     flex: 1;
 }
 
 .search-input {
-    height: 30px;
-    width: 70%;
-    padding: 3px 6px;
+    width: 60%;
+    padding: 5px 6px;
+    font-family: 'Open Sans', sans-serif;
     border: none;
     border-radius: 3px;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
 }
 
 .tag-item {
@@ -75,7 +83,13 @@ body {
 }
 
 .card i, .card p {
-    font-size: 2.3vw;
+  font-size: 3vw;
+}
+
+@media (min-width: 620px) {
+  .card i, .card p {
+    font-size: 1.8vw;
+  }
 }
 
 .card-img {
@@ -99,7 +113,6 @@ body {
 
 .pagination {
     display: inline-block;
-    justify-content: center;
     margin: 50px auto;
     position: relative;
     bottom: 0;
@@ -124,6 +137,12 @@ body {
 
 .pagination a:hover:not(.active) {
     background-color: #ddd;
+}
+
+@media (min-width: 550px) {
+  .pagination {
+    margin: 70px auto;
+}
 }
 
 .uploadModal {
@@ -253,254 +272,80 @@ body {
     margin-left: 0.5%;
 }
 
+footer {
+  background-color: #75787f;
+  color: white;
+  padding: 5%
+}
 
-/* contact us */
-.form-group {
-      width: 360px;
-      height: 70px;
-      background: #fff;
-      position: absolute;
-      border-radius: 50px;
+footer h3 {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 8vw;
+  letter-spacing: .5vw;
+  color: #ed254e;
+  text-shadow: -.5px -.5px 3px white;
+  margin-bottom: 10px;
+}
+
+footer h4 {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 100;
+  font-size: 4vw;
+  margin-left: 10%;
+  margin-bottom: 15px;
+}
+
+footer input {
+    margin: 5px 0;
+    border: none;
+    width: 60vw;
+    background-color: white;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+}
+
+footer textarea {
+    margin: 5px 0;
+    border: none;
+    background-color: white;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    width: 60vw;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+footer button {
+    background-color: #ed254e;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	text-align: center;
+	padding: 5px 20px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 1em;
+    transition: .2s;
+}
+
+footer button:hover {
+	background-color: #f04c6e;
+}
+
+@media (min-width: 860px) {
+    footer h3 {
+        font-size: 6vw;
     }
-    
-  .form-group .form-body {
-    height: 70px;
-    overflow: hidden;
-    border-radius: 50px;
-  }
-  
-  .form-group .form-body .error-text {
-    position: absolute;
-    left: 80px;
-    top: 4px;
-    z-index: 25;
-    color: #b71c1c;
-    font-size: 10px;
-    font-weight: 600;
-    display: none;
-  }
-  
-  .form-group .form-body .form-controls {
-    position: relative;
-    z-index: 5;
-    transition: ease-in 0.2s;
-    top: 0;
-  }
-  
-  .form-group .form-body .form-controls input {
-    display: block;
-    width: 100%;
-    height: 70px;
-    padding: 10px 60px 10px 80px;
-    font-size: 18px;
-    color: #666;
-    border: none;
-  }
-  
-  .form-group .form-body .form-controls input:focus {
-    outline: none;
-  }
-  
-  .form-group .form-head {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 70px;
-    height: 100%;
-    background: #f50057;
-    border-radius: 50px;
-    text-align: center;
-    line-height: 70px;
-    font-size: 22px;
-    color: #fff;
-    cursor: pointer;
-    z-index: 40;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    transition: ease-in 0.2s;
-  }
-  
-  .form-group .form-head .text {
-    display: block;
-  }
-  
-  .form-group .form-head .text:before {
-    font-family: "Open Sans", sans-serif;
-  }
-  
-  .form-group .form-action {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: #fefefe;
-    text-align: center;
-    right: 10px;
-    top: 50%;
-    border-radius: 50px;
-    transform: translateY(-50%);
-    z-index: 50;
-    cursor: pointer;
-    transition: 0.3s;
-    border: none;
-    outline: none;
-    color: inherit;
-  }
-  
-  .form-group .form-action:hover {
-    background: #f9f9f9;
-  }
-  
-  .form-group .form-action .icon-action {
-    transition: ease-in 0.2s;
-  }
-  
-  .form-group .form-action .icon-action:after {
-    line-height: 50px;
-    content: "arrow_forward";
-  }
-  
-  .form-group .form-action .icon-action.back {
-    transform: rotate(180deg);
-  }
-  
-  .form-group .icon-placeholder {
-    font-size: 40px;
-    line-height: 70px;
-  }
-  
-  .form-group#help {
-    color: #fff;
-  }
-  .form-group#help .form-head {
-    width: 100%;
-  }
-  .form-group#help .form-head .icon-placeholder {
-    display: none;
-  }
-  .form-group#help .form-head .text {
-    display: block;
-  }
-  .form-group#help .form-head .text:before {
-    content: "Contact Us";
-  }
-  
-  .form-group#help .form-action {
-    background: none;
-    line-height: 65px;
-  }
-  
-  .form-group#help .form-action .icon-action.back {
-    transform: rotate(0);
-  }
-  
-  .form-group#submit {
-    color: #fff;
-  }
-  
-  .form-group#submit .form-head {
-    width: 100%;
-    background: #00e676;
-  }
-  
-  .form-group#submit .form-head .icon-placeholder {
-    display: none;
-  }
-  
-  .form-group#submit .form-head .text {
-    display: block;
-  }
-  
-  .form-group#submit .form-head .text:before {
-    content: "Submit";
-  }
-  
-  .form-group#submit .form-action {
-    right: 30px;
-    background: none;
-    line-height: 65px;
-  
-  }
-  
-  .form-group#submit .form-action .icon-action.back {
-    transform: rotate(0);
-  }
-  
-  .form-group#submit .form-action .icon-action:after {
-    content: "mood";
-  }
-  
-  .form-group#name {
-    color: #9c27b0;
-  }
-  
-  .form-group#name .form-head {
-    background: #9c27b0;
-  }
-  
-  .form-group#name .form-head .icon-placeholder:after {
-    content: "face";
-  }
-  
-  .form-group#email {
-    color: #009688;
-  }
-  
-  .form-group#email .form-head {
-    background: #009688;
-  }
-  
-  .form-group#email .form-head .icon-placeholder:after {
-    content: "email";
-  }
-  
-  .form-group#email .form-body .form-controls {
-    top: -70px;
-  }
-  .form-group#text {
-    color: #fceb00;
-  }
-  
-  .form-group#text .form-head {
-    background: #fceb00;
-  }
-  
-  .form-group#text .form-head .icon-placeholder:after {
-    content: "comment";
-  }
-  
-  .form-group#email .form-body .form-controls {
-    top: -70px;
-  }
-  
-  .form-group.error .form-head {
-    background: #b71c1c !important;
-  }
-  .form-group.error .form-head .icon-placeholder:after {
-    content: "close" !important;
-  }
-  
-  .material-icons, .form-group .form-action .icon-action,
-  .icon-placeholder {
-    font-family: "Material Icons", cursive;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    text-rendering: optimizeLegibility;
-    font-feature-settings: "liga";
-  }
+    footer h4 {
+        font-size: 2vw;
+    }
+    footer input, footer textarea {
+        width: 40vw;
+    }
+}
 
-  footer {
-      display: flex;
-      height: 100px;
-  }
-
-  .container-form {
-      display: flex;
-      height: 100px;
-  }
