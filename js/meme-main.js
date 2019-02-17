@@ -12,6 +12,13 @@ function init() {
 }
 
 function renderGallery(pageId) {
+    let strGallery2 = `
+    <li>
+                    <div class="hexagon card" style="background: blue;">
+                        
+                    </div>
+                </li>
+                `
     let memes = memesToShow(pageId)
     let strGallery = memes.map(function (meme) {
         return `
@@ -22,7 +29,7 @@ function renderGallery(pageId) {
         </li>
         `
     });
-    $('.gallery').html(strGallery.join(''));
+    $('.gallery').html(strGallery2 + strGallery.join(''));
 
     
     let leftArrow = '&laquo;';
