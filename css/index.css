@@ -38,6 +38,11 @@ body {
     flex: 1;
 }
 
+.search-input {
+    height: 30px;
+    width: 70%
+}
+
 .tag-item {
     cursor: pointer;
     margin: 2px;
