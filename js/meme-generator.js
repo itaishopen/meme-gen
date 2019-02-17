@@ -257,18 +257,10 @@ function onChangeFont(elFontBtn) {
         default:
             break;
     }
-    
     renderText();
     setTimeout(renderText, 5)
     closeModal();
 }
-// function onChangeFont(elSelect) {
-//     var fontFamily = elSelect.value;
-//     gSelectedRow.font = fontFamily;
-//     renderText();
-//     setTimeout(renderText, 5)
-//     closeModal();
-// }
 
 function openModal() {
     if (!gSelectedRow) return;

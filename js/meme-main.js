@@ -111,14 +111,16 @@ function mostRepeatedTags(tags) {
 }
 
 function renderKeywords() {
-    var elKeys = document.querySelector('.keywords-container');
+    // var elKeys = document.querySelector('.keywords-container');
+    var $elKeys = $('.keywords-container');
     var strHtml = '';
     let mixJumble = getFontSize()
     mixJumble.forEach((cell) => {
         strHtml += `<div class="tag-item" href="#" onclick="onClickJumble('${cell[0]}')" 
         style="font-size:${cell[1]}em";> #${cell[0]}</div>`
     });
-    elKeys.innerHTML = strHtml;
+    // elKeys.innerHTML = strHtml;
+    $elKeys.html(strHtml);
 }
 
 function getFontSize() {
