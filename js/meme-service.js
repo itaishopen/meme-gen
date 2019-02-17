@@ -1,6 +1,7 @@
 'use strict'
 var gSearchBy = 'all';
 var gCurrentPageId = 0;
+var isFirstJumble = true;
 const MEMES_KEY = 'my-memes';
 const memesInPage = 11;
 
@@ -13,9 +14,9 @@ function createMemes() {
     return memes;
 }
 
-function createMeme(name, url, width, height, tags = []) {
+function createMeme(id, name, url, width, height, tags = []) {
     return {
-        id: makeId(),
+        id: id,
         name: name,
         url: url,
         width: width,
@@ -29,6 +30,22 @@ function findMemeById(memeId) {
     return getMemes().find(function (meme) {
         return meme.id === memeId;
     });
+}
+
+function makeJumble(tags) {
+    if (isFirstJumble) {
+        var iterator1 = tags.entries();
+        var items = [];
+        for (var i = 0; i < 5; i++) {
+            let cell = iterator1.next().value
+            for (let j = 0; j < +cell[1]; j++) {
+                items.push(cell[0])
+            }
+        }
+        isFirstJumble = false;
+        gJumbleInput = items;
+    }
+    gJumble = mostRepeatedTags(gJumbleInput);
 }
 
 function arrangeMemes() {
