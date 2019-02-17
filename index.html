@@ -40,21 +40,22 @@
         <div class="pagination flex">
         </div>
 
-        <div class="uploadModal">
+        <div class="uploadModal hide">
             <div class="modal-content flex space-center align-center">
-                <!-- <span class="close">&times;</span> -->
+                <span class="close">&times;</span>
                 <div class="modal-upload upload">
                     <form>
-                        <!-- <label class="btn upload-label" for="image_uploads">
-                            Choose images to upload</label> -->
-                        <input id="image_uploads" type="file" onchange="onFileLoad()" accept="image/*"
+                        <p>Upload File</p>
+                        <input id="image_uploads" class="upload-input" type="file" onchange="onFileLoad()" accept="image/*"
                             style="opacity:0.3;">
                     </form>
                 </div>
+                <p class="modal-or">OR</p>
                 <div class="modal-upload url">
                     <form>
-                    <input type="url">
-                    <input type="button" value="upload">
+                        <p>Upload URL</p>
+                        <input placeholder="Enter image URL" class="upload-input" type="url">
+                        <input type="button" value="upload">
                     </form>
                 </div>
             </div>

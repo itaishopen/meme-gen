@@ -100,7 +100,6 @@ body {
 }
 
 .uploadModal {
-    display: block;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -115,7 +114,7 @@ body {
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
-    /* padding: 50px; */
+    padding: 50px;
     border: 1px solid #888;
     width: 80%;
     /* height: 300px; */
@@ -138,12 +137,24 @@ body {
 .modal-upload {
     flex: 1;
     border: 1px dashed black;
-    margin: 50px;
+}
+
+.modal-or {
+    padding: 10px;
+    font-weight: 700;
+}
+
+.upload-input {
+    width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 #image_uploads {
     cursor: pointer;
-    padding: 100px;
 }
 
 /* hexagon gallery */

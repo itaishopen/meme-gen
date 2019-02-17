@@ -141,5 +141,5 @@ function onUrlLoad() {
 }
 
 function openModal() {
-    
+    $('.uploadModal').removeClass('hide');
 }
