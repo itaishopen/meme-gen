@@ -77,15 +77,18 @@
     <div class="fontModal hide">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <div class="font-content">
-                <select class="fontSelect" onchange="onChangeFont(this)">
+            <div class="font-content flex space-evenly">
+                <!-- <select class="fontSelect" onchange="onChangeFont(this)">
                     <option selected hidden disabled>choose font...</option>
                     <option value="impact">Impact</option>
                     <option value="Lobster">Lobster</option>
                     <option value="oswald">Oswald</option>
                     <option value="coiny">Coiny</option>
-                </select>
-
+                </select> -->
+                <button class="btn-font impact" onclick="onChangeFont(this)">Impact</button>
+                <button class="btn-font lobster" onclick="onChangeFont(this)">Lobster</button>
+                <button class="btn-font oswald" onclick="onChangeFont(this)">Oswald</button>
+                <button class="btn-font coiny" onclick="onChangeFont(this)">Coiny</button>
             </div>
         </div>
     </div>

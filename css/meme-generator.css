@@ -189,7 +189,43 @@ button.control-item {
 }
 
 .font-content {
-    padding: 3%;
+	padding: 3%;
+	flex-wrap: wrap;
+}
+
+.btn-font {
+	margin: 5px;
+	background-color: #ed254e;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	text-align: center;
+	padding: 5px 20px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 500;
+	text-transform: uppercase;
+	height: 40px;
+	font-size: 1em;
+}
+
+.impact {
+	font-family: Impact, sans-serif;
+}
+
+.lobster {
+	font-family: 'Lobster', cursive;
+}
+
+.oswald {
+	font-family: 'Oswald', sans-serif;
+}
+
+.coiny {
+	font-family: 'Coiny', cursive;
+}
+
+.back:hover {
+	background-color: #f04c6e;
 }
 
 .close {

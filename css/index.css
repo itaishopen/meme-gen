@@ -274,23 +274,46 @@ body {
 
 /* about us */
 .about-us {
-    height: 300px;
     background-color: #80848d;
     grid-template-areas: "photo1 desc1"
                          "photo2 desc2";
+    font-family: 'Ubuntu', sans-serif;
+    justify-items: center;
+    color: white;
+    font-weight: 300;
+    padding: 20px 0;
 }
 
 .photo1, .photo2 {
     margin: 25px 0;
     display: inline-block;
-    height: 90px;
-    width: 90px;
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
-    background-image: url('');
     background-size: cover;
     border: 4px solid #f0f0f0;
 }
 
+.photo1 {
+    background-image: url('/img/itai.jpg');
+    grid-area: photo1;
+}
+
+.photo2 {
+    background-image: url('/img/adi.png');
+    grid-area: photo2;
+}
+
+.desc1, .desc2 {
+    padding-bottom: 20px;
+}
+
+@media (min-width: 900px) {
+    .about-us {
+        grid-template-areas: "photo1 photo2"
+                             "desc1 desc2";
+    }
+}
 
 /* contact us */
 footer {

@@ -239,13 +239,36 @@ function onColorChanged() {
     renderText();
 }
 
-function onChangeFont(elSelect) {
-    var fontFamily = elSelect.value;
-    gSelectedRow.font = fontFamily;
+function onChangeFont(elFontBtn) {
+    var fontFamily = elFontBtn.classList[1];
+    switch (fontFamily) {
+        case 'impact':
+            gSelectedRow.font = fontFamily;
+            break;
+        case 'lobster':
+            gSelectedRow.font = fontFamily;
+            break;
+        case 'oswald':
+            gSelectedRow.font = fontFamily;
+            break;
+        case 'coiny':
+            gSelectedRow.font = fontFamily;
+            break;
+        default:
+            break;
+    }
+    
     renderText();
     setTimeout(renderText, 5)
     closeModal();
 }
+// function onChangeFont(elSelect) {
+//     var fontFamily = elSelect.value;
+//     gSelectedRow.font = fontFamily;
+//     renderText();
+//     setTimeout(renderText, 5)
+//     closeModal();
+// }
 
 function openModal() {
     if (!gSelectedRow) return;
