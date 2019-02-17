@@ -155,6 +155,7 @@ body {
 
 #image_uploads {
     cursor: pointer;
+    border: none;
 }
 
 /* hexagon gallery */
