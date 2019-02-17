@@ -21,37 +21,33 @@ function createMeme(id, name, url, width, height, tags = []) {
         url: url,
         width: width,
         height: height,
-        rate: 1,
+        rate: 0,
         tags: tags
     }
 }
 
 function findMemeById(memeId) {
-    var memes = loadFromLocalStorage(MEMES_KEY);
-    return memes.find(function (meme) {
+    return gCurrentMemes.find(function (meme) {
         return meme.id === memeId;
     });
 }
 
 function makeJumble(tags) {
-    if (isFirstJumble) {
-        var iterator1 = tags.entries();
-        var items = [];
-        for (var i = 0; i < 5; i++) {
-            let cell = iterator1.next().value
-            for (let j = 0; j < +cell[1]; j++) {
-                items.push(cell[0])
-            }
+    var iterator1 = tags.entries();
+    var items = [];
+    for (var i = 0; i < 5; i++) {
+        let cell = iterator1.next().value
+        for (let j = 0; j < +cell[1]; j++) {
+            items.push(cell[0])
         }
-        isFirstJumble = false;
-        gJumbleInput = items;
     }
-    gJumble = mostRepeatedTags(gJumbleInput);
+    return items;
 }
 
 function arrangeMemes() {
-    if (gSearchBy === 'all') return getMemes().sort(sortRating);
-    var memes = getMemes().filter(function (meme) {
+    let allMemes = loadFromLocalStorage(MEMES_KEY);
+    if (gSearchBy === 'all') return allMemes.sort(sortRating);
+    var memes = allMemes.filter(function (meme) {
         var res = meme.tags.some((tag) => {
             return (!tag.indexOf(gSearchBy));
         });
@@ -119,34 +115,34 @@ function createRow(num) {
                 isFirst: true
             }
         default:
-        if ((60 + (60 * (num - 1))) < gCanvas.height) {
-            return {
-                id: `${num}`,
-                line: ``,
-                size: 60,
-                align: 'center',
-                color: '#ffffff',
-                stroke: 'black',
-                x: (gCanvas.width / 2) - 30,
-                y: 60 + (60 * (num - 1)),
-                isShadow: false,
-                font: 'impact',
-                isFirst: true
+            if ((60 + (60 * (num - 1))) < gCanvas.height) {
+                return {
+                    id: `${num}`,
+                    line: ``,
+                    size: 60,
+                    align: 'center',
+                    color: '#ffffff',
+                    stroke: 'black',
+                    x: (gCanvas.width / 2) - 30,
+                    y: 60 + (60 * (num - 1)),
+                    isShadow: false,
+                    font: 'impact',
+                    isFirst: true
+                }
+            } else {
+                return {
+                    id: `${num}`,
+                    line: '',
+                    size: 60,
+                    align: 'center',
+                    color: '#ffffff',
+                    stroke: 'black',
+                    x: (gCanvas.width / 2) - 30,
+                    y: gCanvas.height / 2,
+                    isShadow: false,
+                    font: 'impact',
+                    isFirst: true
+                }
             }
-        } else {
-            return {
-                id: `${num}`,
-                line: '',
-                size: 60,
-                align: 'center',
-                color: '#ffffff',
-                stroke: 'black',
-                x: (gCanvas.width / 2) - 30,
-                y: gCanvas.height / 2,
-                isShadow: false,
-                font: 'impact',
-                isFirst: true
-            }
-        }
     }
 }

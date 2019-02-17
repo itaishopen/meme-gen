@@ -8,6 +8,7 @@ var gSelectedRow;
 var rowNum = 0;
 
 function drawCanvase() {
+    gCurrentMemes = createMemes();
     var memeId = window.location.search
     if (memeId.substring(0, 1) === '?') memeId = memeId.substring(1);
     if (!memeId) memeId = '61520';
