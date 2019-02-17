@@ -102,10 +102,8 @@ function renderKeywords() {
     var elKeys = document.querySelector('.keywords-container');
     console.log('elKeywordsContainer', elKeys);
     var strHtml = '';
-    gJumble.forEach(function (value, key) {
-        // var fontSize = getFontSize(value);
-        // console.log('keyyyy', key, 'gKeywordCount[key]', value);
-        strHtml += `<a href="#" onclick="onClickJumble('${key}')" style="font-size:${value * 2}px";> ${key} </a>`
+    gJumble.forEach(function(value, key ) {
+        strHtml += `<a href="#" onclick="onClickJumble('${key}')" style="font-size:${value*2}px";> ${key} </a>`
     });
     elKeys.innerHTML = strHtml;
 }
