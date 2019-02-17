@@ -1,5 +1,6 @@
 'use strict'
 var gCurrentMemes, gJumble, gJumbleInput, isFirstJumble = true;
+var gJumbleRumble = [0,1,2,3,4]
 const JUMBLE_KEY = 'meme';
 
 function init() {
@@ -112,15 +113,35 @@ function mostRepeatedTags(tags) {
 function renderKeywords() {
     var elKeys = document.querySelector('.keywords-container');
     var strHtml = '';
-    gJumble.forEach(function (value, key) {
-        strHtml += `<div class="tag-item" href="#" onclick="onClickJumble('${key}')" 
-        style="font-size:${value * 0.08}rem";> #${key}</div>`
+    let mixJumble = getFontSize()
+    mixJumble.forEach((cell) => {
+        strHtml += `<div class="tag-item" href="#" onclick="onClickJumble('${cell[0]}')" 
+        style="font-size:${cell[1]}em";> #${cell[0]}</div>`
     });
     elKeys.innerHTML = strHtml;
 }
 
-function getFontSize(num) {
-    return 5 * num
+function getFontSize() {
+    var max = 0;
+    var fontSizes = []
+    gJumble.forEach(function (value, key) {
+        if(max === 0) max = value;
+        let font = (value / max) * 1.5;
+        fontSizes.push([key, font]);
+    });
+    var scrambleSizes = []
+    for (let i=0; i < 5; i++) {
+        var num = randomCell();
+        scrambleSizes.push(fontSizes[num]);
+    }
+    gJumbleRumble = [0,1,2,3,4]
+    console.log(scrambleSizes);
+    return scrambleSizes
+}
+
+function randomCell() {
+    var num = getRandomIntNonInclusive(0, gJumbleRumble.length);
+    return gJumbleRumble.splice(num,1)
 }
 
 function onFileLoad() {
