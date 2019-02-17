@@ -256,6 +256,11 @@ function openModal() {
 
 function closeModal() {
     $('.fontModal').addClass('hide');
+    clearModal();
+}
+
+function clearModal() {
+    $('.fontSelect').prop('selectedIndex',0);
 }
 
 function findRowByIdx(rowIdx) {

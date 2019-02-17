@@ -77,7 +77,8 @@ main {
 }
 
 ::placeholder {
-    font-family: impact;
+	font-family: impact;
+	color: black;
 }
 
 .modal {
