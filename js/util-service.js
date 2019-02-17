@@ -5,12 +5,6 @@ function makeId() {
     for (let i = 0; i < length; i++) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-    var find = getMemes().findIndex(function(meme) {
-        return txt === meme.id
-    })
-    if (find === -1) {
-        makeId();
-    }
     return txt;
 }
 
