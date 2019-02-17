@@ -1,11 +1,13 @@
 'use strict'
-var gCurrentMemes, gJumble;
+var gCurrentMemes, gJumble, gJumbleInput, isFirstJumble = true;
 const MEME_KEY = 'meme';
 
 function init() {
     gCurrentMemes = createMemes();
     var tags = combineTags(gCurrentMemes);
-    gJumble = mostRepeatedTags(tags);
+    var firstJumble = mostRepeatedTags(tags);
+    makeJumble(firstJumble);
+    console.log(gJumbleInput)
     let pageIdx = getCurrPageId();
     renderKeywords()
     renderGallery(pageIdx);
@@ -64,11 +66,14 @@ function onClickJumble(searchVal) {
 }
 
 function onMemeChose(memeId) {
+    let searchVal = $('.search-input').val();
+    if (searchVal) {
+        gJumbleInput.push(searchVal.trim())
+        console.log(gJumbleInput)
+    }
     var meme = findMemeById(memeId);
     meme.rate += 1;
-    saveToLocalStorage(MEME_KEY, meme)
-    saveToLocalStorage(MEMES_KEY, gCurrentMemes)
-    window.location.assign(`meme-generator.html?${memeId}`);
+    // window.location.assign(`meme-generator.html?${memeId}`);
 
 }
 
@@ -90,9 +95,9 @@ function mostRepeatedTags(tags) {
         return 0;
     }));
     var iterator1 = sorted.entries();
-    var items = new Map();
+    var items = new Map;
     for (var i = 0; i < 5; i++) {
-        let cell = iterator1.next().value
+        let cell = iterator1.next().value;
         items.set(cell[0], cell[1])
     }
     return items;
@@ -102,8 +107,8 @@ function renderKeywords() {
     var elKeys = document.querySelector('.keywords-container');
     console.log('elKeywordsContainer', elKeys);
     var strHtml = '';
-    gJumble.forEach(function(value, key ) {
-        strHtml += `<a href="#" onclick="onClickJumble('${key}')" style="font-size:${value*2}px";> ${key} </a>`
+    gJumble.forEach(function (value, key) {
+        strHtml += `<a href="#" onclick="onClickJumble('${key}')" style="font-size:${value * 2}px";> ${key} </a>`
     });
     elKeys.innerHTML = strHtml;
 }
@@ -123,12 +128,13 @@ function onFileLoad() {
         let memeWidth;
         let memeHeight;
         let img = new Image;
-        img.onload = function() {
+        img.onload = function () {
             memeWidth = img.width;
             memeHeight = img.height;
         }
         img.src = reader.result;
-        addMeme({id: memeId, name: memeName, url: img.src, width: memeWidth, height: memeHeight, rate: 1, tags: ['user upload']})
+        let meme = createMeme(memeId, memeName, img.src, memeWidth, memeHeight, ['user upload'])
+        addMeme(meme)
         onMemeChose(memeId)
     }, false);
 
