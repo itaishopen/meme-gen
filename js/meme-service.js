@@ -2,7 +2,7 @@
 var gSearchBy = 'all';
 var gCurrentPageId = 0;
 const MEMES_KEY = 'my-memes';
-const memesInPage = 12;
+const memesInPage = 11;
 
 function createMemes() {
     var memes = loadFromLocalStorage(MEMES_KEY);

@@ -12,6 +12,9 @@ function init() {
 }
 
 function renderGallery(pageId) {
+    let strUpload = `<li>
+        <div class="hexagon card"></div>
+        </li>`
     let memes = memesToShow(pageId)
     let strGallery = memes.map(function (meme) {
         return `
@@ -22,7 +25,9 @@ function renderGallery(pageId) {
         </li>
         `
     });
-    $('.gallery').html(strGallery.join(''));
+    $('.gallery').html(strUpload + strGallery.join(''));
+
+
     let leftArrow = '&laquo;';
     let rightArrow = '&raquo;';
     if ($('body').hasClass('rtl')) {
@@ -71,16 +76,16 @@ function combineTags(memes) {
 }
 
 function mostRepeatedTags(tags) {
-    var ref = tags.reduce(function(acc, tag) {
-        if (!acc.get(tag)) acc.set(tag,0);
-        acc.set(tag,+acc.get(tag) + 1);
+    var ref = tags.reduce(function (acc, tag) {
+        if (!acc.get(tag)) acc.set(tag, 0);
+        acc.set(tag, +acc.get(tag) + 1);
         return acc;
-    },new Map());
-    var sorted = new Map([...ref].sort(([k, v], [k2, v2])=> {
+    }, new Map());
+    var sorted = new Map([...ref].sort(([k, v], [k2, v2]) => {
         if (v > v2) return -1;
         if (v < v2) return 1;
-        return 0; 
-      }));
+        return 0;
+    }));
     var iterator1 = sorted.entries();
     var items = new Map();
     for (var i = 0; i < 5; i++) {
