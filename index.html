@@ -21,16 +21,18 @@
     </header>
 
     <main id="gallery-main">
-        <div class="top-container flex">
+
+        <div class="top-container flex space-center align-center">
             <div class="search-box">
                 <input placeholder="Search image" class="search-input" type="search" list="tags"
                     onkeyup="onSearchImg(this)">
             </div>
-            <div class="keywords">Sort by keywords:
+            <div class="keywords">
                 <div class="keywords-container">
                 </div>
             </div>
         </div>
+
         <div class="gallery-container">
             <ul class="gallery">
 
@@ -41,21 +43,22 @@
         </div>
 
         <div class="uploadModal hide">
-            <div class="modal-content flex space-center align-center">
+            <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <div class="modal-upload upload">
-                    <form>
-                        <p>Upload File</p>
-                        <input id="image_uploads" class="upload-input" type="file" onchange="onFileLoad()" accept="image/*"
-                            style="opacity:0.3;">
-                    </form>
-                </div>
-                <p class="modal-or">OR</p>
-                <div class="modal-upload url">
-                    <form>
-                        <p>Upload URL</p>
-                        <input placeholder="Enter image URL" class="upload-input" type="url">
-                    </form>
+                <div class="upload-content flex space-center align-center">
+                    <div class="modal-upload upload">
+                        <form>
+                            <p>Upload File</p>
+                            <input id="image_uploads" class="upload-input" type="file" onchange="onFileLoad()"
+                                accept="image/*" style="opacity:0.3;">
+                        </form>
+                    </div>
+                    <div class="modal-upload url">
+                        <form>
+                            <p>Upload URL</p>
+                            <input placeholder="Enter image URL" class="upload-input" type="url">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -25,16 +25,17 @@ body {
 }
 
 .top-container {
+    flex-direction: column;
     justify-content: center;
     align-content: center;
 }
 
 .search-box {
-    height: 100px;
+    flex: 1;
 }
 
-.search-input {
-    margin-top: 25%;
+.keywords {
+    flex: 1;
 }
 
 .card {
@@ -76,6 +77,8 @@ body {
 .pagination {
     display: inline-block;
     justify-content: center;
+    position: relative;
+    bottom: 0;
 }
 
 .pagination a {
@@ -114,16 +117,21 @@ body {
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
-    padding: 50px;
     border: 1px solid #888;
+    padding: 10px;
+    padding-top: 0;
     width: 80%;
-    /* height: 300px; */
+}
+
+.upload-content {
+    flex-direction: column;
+    padding: 3%;
 }
 
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -136,12 +144,9 @@ body {
 
 .modal-upload {
     flex: 1;
-    border: 1px dashed black;
-}
-
-.modal-or {
-    padding: 10px;
-    font-weight: 700;
+    width: 100%;
+    font-weight: 600;
+    /* border: 1px dashed black; */
 }
 
 .upload-input {
