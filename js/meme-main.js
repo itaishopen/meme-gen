@@ -181,3 +181,69 @@ function openModal() {
 function closeModal() {
     $('.uploadModal').addClass('hide');
 }
+
+$(".form-head").click(function() {
+    if (
+      $(this).closest('.form-group').attr('id') == 'help') {
+        $('.form-group').attr('id', 'name');
+        $('.icon-action').addClass('back');
+    }
+    else if ($(this).closest('.form-group').attr('id') == 'submit') {
+        onAddGuess()
+        $('.form-group').attr('id', 'help');
+        $('input').val('');
+    }
+});
+
+$(".form-action").click(function() {
+    console.log('hello');
+    
+    var form_id = $('.form-group').attr('id');
+    $('.icon-action').addClass('back');
+    if ($('#control-' + form_id).val() != '') {
+        switch (form_id) {
+            case 'name':
+                form_id = "email";
+                break;
+            case "email":
+                form_id = "text";
+                break;
+            case "text":
+                form_id = "submit";
+                break;
+            case "submit":
+                form_id = "help";
+                break;
+        }
+        $('.icon-action').addClass('back');
+    } else {
+        switch (form_id) {
+            case 'name':
+                form_id = "help";
+                $('.icon-action').removeClass('back');
+                break;
+            case "email":
+                form_id = "name";
+                break;
+            case "text":
+                form_id = "email";
+                break;
+            case "submit":
+                form_id = "help";
+                break;
+        }
+        $('.icon-action').removeClass('back');
+    }
+    $('.form-group').attr('id', form_id);
+});
+
+$('input').keyup(function () {
+    $('.form-group').removeClass('error');
+    $('.error-text').fadeOut();
+    if ($(this).val() != '') {
+        $('.icon-action').removeClass('back');
+    }
+    else {
+        $('.icon-action').addClass('back');
+    }
+})
