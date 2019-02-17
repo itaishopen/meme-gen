@@ -21,7 +21,7 @@ function init() {
 function renderGallery(pageId) {
     let strUpload = `
     <li>
-        <div class="hexagon card" onclick="openModal()">
+        <div class="hex hexagon card" onclick="openModal()">
             <i class="fas fa-file-upload"></i>
             <p>Upload image</p>
         </div>
@@ -30,7 +30,7 @@ function renderGallery(pageId) {
     let strGallery = memes.map(function (meme) {
         return `
         <li>
-            <div class="hexagon card meme meme-item${meme.id}">
+            <div class="hex hexagon card meme meme-item${meme.id}">
                 <img class="card-img" src="${meme.url}" onclick="onMemeChose('${meme.id}')">
             </div>
         </li>
