@@ -41,10 +41,8 @@ function createCanvaseSize() {
     if ($('body').width() < 700) {
         gCanvas.width = $('body').width() - 50;
         gCanvas.height = ((($('body').width() - 50) * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
-        console.log(gCanvas.height)
         if (gCanvas.height > $('body').height() - 200) {
             $('.more-room').css('display', 'block');
-            console.log('Im here')
         }
     } else {
 
