@@ -295,12 +295,12 @@ body {
 }
 
 .photo1 {
-    background-image: url('/img/itai.jpg');
+    background-image: url('../img/itai.jpg');
     grid-area: photo1;
 }
 
 .photo2 {
-    background-image: url('/img/adi.png');
+    background-image: url('../img/adi.png');
     grid-area: photo2;
 }
 
@@ -308,6 +308,12 @@ body {
     padding-bottom: 20px;
 }
 
+@media (min-width: 450px) {
+    .photo1, .photo2 {
+        height: 120px;
+        width: 120px;
+    }
+}
 @media (min-width: 900px) {
     .about-us {
         grid-template-areas: "photo1 photo2"
