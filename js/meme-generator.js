@@ -243,7 +243,7 @@ function onChangeFont(elSelect) {
     var fontFamily = elSelect.value;
     gSelectedRow.font = fontFamily;
     renderText();
-    // setTimeout(renderText, 30)
+    setTimeout(renderText, 5)
     closeModal();
 }
 
