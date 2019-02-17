@@ -3,6 +3,7 @@ var gCurrentMemes, gJumble, gJumbleInput, isFirstJumble = true;
 const JUMBLE_KEY = 'meme';
 
 function init() {
+    debugger;
     gCurrentMemes = createMemes();
     gJumbleInput = loadFromLocalStorage(JUMBLE_KEY)
     if (!gJumbleInput || gJumbleInput.length === 0) {
