@@ -1,11 +1,13 @@
 var gCanvas;
 var gCtx;
 var gCurrentMeme = {
+    img: null,
     meme: null,
     rows: []
 };
 var gSelectedRow;
 var rowNum = 0;
+var tryRender
 
 function drawCanvase() {
     gCurrentMemes = createMemes();
@@ -24,14 +26,14 @@ function drawCanvase() {
     createCanvaseSize()
     $('.meme-container').css({ 'width': gCanvas.width, 'height': gCanvas.height })
     gCtx = gCanvas.getContext('2d');
-    var img = new Image;
-    img.onload = function () {
-        gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
+    gCurrentMeme.img = new Image;
+    gCurrentMeme.img.onload = function () {
+        gCtx.drawImage(gCurrentMeme.img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
     }
     onAddRow(rowNum++)
     onAddRow(rowNum++)
-    img.setAttribute('crossOrigin', 'anonymous');
-    img.src = gCurrentMeme.meme.url;
+    gCurrentMeme.img.setAttribute('crossOrigin', 'anonymous');
+    gCurrentMeme.img.src = gCurrentMeme.meme.url;
 }
 
 function createCanvaseSize() {
@@ -51,25 +53,23 @@ function createCanvaseSize() {
 }
 
 function renderText() {
-    var img = new Image;
-    img.onload = function () {
+    var img = gCurrentMeme.img
+    img.onload = function() {
         gCtx.drawImage(img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
-        var rows = gCurrentMeme.rows;
-        rows.forEach(function renderLine(row) {
-            gCtx.font = row.size + 'px ' + row.font;
-            gCtx.shadowColor = "black";
-            (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
-            gCtx.fillStyle = row.color;
-            gCtx.textAlign = row.align;
-            textLength = (row.line.length * row.size) / 2;
-            gCtx.lineJoin = 'round';
-            gCtx.lineWidth = row.size / 5;
-            gCtx.strokeText(row.line, row.x, row.y);
-            gCtx.fillText(row.line, row.x, row.y);
-        })
     }
-    img.setAttribute('crossOrigin', 'anonymous');
-    img.src = gCurrentMeme.meme.url;
+    var rows = gCurrentMeme.rows;
+    rows.forEach(function renderLine(row) {
+        gCtx.font = row.size + 'px ' + row.font;
+        gCtx.shadowColor = "black";
+        (row.isShadow) ? gCtx.shadowBlur = 15 : gCtx.shadowBlur = 0;
+        gCtx.fillStyle = row.color;
+        gCtx.textAlign = row.align;
+        textLength = (row.line.length * row.size) / 2;
+        gCtx.lineJoin = 'round';
+        gCtx.lineWidth = row.size / 5;
+        gCtx.strokeText(row.line, row.x, row.y);
+        gCtx.fillText(row.line, row.x, row.y);
+    })
 }
 
 function onDownload() {
@@ -109,7 +109,7 @@ function onInsertTxt(elInputText) {
 }
 
 function dragTouch(elRow) {
-    var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''));    
+    var row = findRowByIdx(elRow.classList[1].replace(/^\D+/g, ''));
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     gSelectedRow = row;
     elRow.setAttribute('draggable', "true");
@@ -117,39 +117,35 @@ function dragTouch(elRow) {
     pos3 = event.touches[0].pageX;
     pos4 = event.touches[0].pageY;
 
-    pos1 =  pos3 - getOffsetLeft(gCanvas);
+    pos1 = pos3 - getOffsetLeft(gCanvas);
     pos2 = pos4 - getOffsetTop(gCanvas);
 
     pos3 = event.touches[0].pageX;
     pos4 = event.touches[0].pageY;
 
-    elRow.style.left = (pos1 - (gCanvas.width/2)) + "px";
-    elRow.style.top = (pos2 - (row.size/2)) + "px";
+    elRow.style.left = (pos1 - (gCanvas.width / 2)) + "px";
+    elRow.style.top = (pos2 - (row.size / 2)) + "px";
     row.x = pos1;
     row.y = pos2 + (row.size / 2);
-    renderText()    
+    renderText()
 }
 
-function getOffsetLeft( elem )
-{
+function getOffsetLeft(elem) {
     var offsetLeft = 0;
     do {
-      if ( !isNaN( elem.offsetLeft ) )
-      {
-          offsetLeft += elem.offsetLeft;
-      }
-    } while( elem = elem.offsetParent );
+        if (!isNaN(elem.offsetLeft)) {
+            offsetLeft += elem.offsetLeft;
+        }
+    } while (elem = elem.offsetParent);
     return offsetLeft;
 }
-function getOffsetTop( elem )
-{
+function getOffsetTop(elem) {
     var offsetTop = 0;
     do {
-      if ( !isNaN( elem.offsetTop ) )
-      {
-        offsetTop += elem.offsetTop;
-      }
-    } while( elem = elem.offsetParent );
+        if (!isNaN(elem.offsetTop)) {
+            offsetTop += elem.offsetTop;
+        }
+    } while (elem = elem.offsetParent);
     return offsetTop;
 }
 
@@ -159,7 +155,7 @@ function onRowDrag(elRow) {
     elRow.onclick = openContenteditable
     elRow.onmousedown = dragMouseDown;
 
-    function dragMouseDown(ev) {        
+    function dragMouseDown(ev) {
         gSelectedRow = row;
         elRow.setAttribute('draggable', "true");
         // get the mouse cursor position at startup:
@@ -287,12 +283,33 @@ function onTxtMove(elBtnMove) {
 }
 
 function onOpenColorPalette() {
+    if (!gSelectedRow) return;
     $('.control-color-btn')[0].click();
 }
 
 function onColorChanged() {
+    if (!gSelectedRow) return;
     gSelectedRow.color = $('.control-color-btn').val();
     renderText();
+}
+
+function onChangeFont(elSelect) {
+    if (!gSelectedRow) return;
+    var fontFamily = elSelect.value;
+    gSelectedRow.font = fontFamily;
+    console.log(gSelectedRow)
+    // debugger
+    renderText();
+    // setTimeout(renderText, 30)
+    closeModal();
+}
+
+function openModal() {
+    $('.fontModal').removeClass('hide');
+}
+
+function closeModal() {
+    $('.fontModal').addClass('hide');
 }
 
 function canvasClicked(ev) {
