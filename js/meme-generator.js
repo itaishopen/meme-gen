@@ -27,7 +27,6 @@ function drawCanvase() {
     createCanvaseSize()
     $('.meme-container').css({ 'width': gCanvas.width, 'height': gCanvas.height })
     gCtx = gCanvas.getContext('2d');
-    // drawImageSmall(gCurrentMeme.meme.url)
     gCurrentMeme.img = new Image;
     gCurrentMeme.img.onload = function () {
         gCtx.drawImage(gCurrentMeme.img, 0, 0, gCurrentMeme.meme.width, gCurrentMeme.meme.height, 0, 0, gCanvas.width, gCanvas.height);
@@ -42,6 +41,11 @@ function createCanvaseSize() {
     if ($('body').width() < 700) {
         gCanvas.width = $('body').width() - 50;
         gCanvas.height = ((($('body').width() - 50) * gCurrentMeme.meme.height) / gCurrentMeme.meme.width);
+        console.log(gCanvas.height)
+        if (gCanvas.height > $('body').height() - 200) {
+            $('.more-room').css('display', 'block');
+            console.log('Im here')
+        }
     } else {
 
         if (gCurrentMeme.meme.width > 500) {
