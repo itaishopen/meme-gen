@@ -148,26 +148,30 @@ function onFileLoad() {
 }
 
 function handleEnter(elInputURL, ev) {
-    var keycode = (e.keyCode ? e.keyCode : e.which);
+    ev.preventDefault();
+    var keycode = (ev.keyCode ? ev.keyCode : ev.which);
     if (keycode == '13') {
+        console.log('hello')
         onUrlLoad(elInputURL);
     }
 }
 
 function onUrlLoad(elInputURL) {
+    console.log(elInputURL.value.trim())
     let memeId = makeId();
-        let memeName = `user${memeId}`;
-        let memeWidth;
-        let memeHeight;
-        let img = new Image;
-        img.onload = function () {
-            memeWidth = img.width;
-            memeHeight = img.height;
-            let meme = createMeme(memeId, memeName, elInputURL, memeWidth, memeHeight, ['user upload'])
-            addMeme(meme)
-            onMemeChose(memeId)
-        }
-        img.src = elInputURL;
+    let memeName = `user${memeId}`;
+    let memeWidth;
+    let memeHeight;
+    let img = new Image;
+    img.onload = function () {
+        memeWidth = img.width;
+        memeHeight = img.height;
+        let meme = createMeme(memeId, memeName, elInputURL.value.trim(), memeWidth, memeHeight, ['user upload'])
+        console.log(meme)
+        addMeme(meme)
+        onMemeChose(memeId)
+    }
+    img.src = elInputURL.value.trim();
 
 }
 
