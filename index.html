@@ -23,7 +23,8 @@
     <main id="gallery-main">
         <div class="top-container flex">
             <div class="search-box">
-                <input placeholder="Search image" class="search-input" type="search" list="tags" onkeyup="onSearchImg(this)">
+                <input placeholder="Search image" class="search-input" type="search" list="tags"
+                    onkeyup="onSearchImg(this)">
             </div>
             <div class="keywords">Sort by keywords:
                 <div class="keywords-container">
@@ -32,12 +33,33 @@
         </div>
         <div class="gallery-container">
             <ul class="gallery">
-                
+
             </ul>
         </div>
-        
+
         <div class="pagination flex">
         </div>
+
+        <div class="uploadModal">
+            <div class="modal-content flex space-center align-center">
+                <!-- <span class="close">&times;</span> -->
+                <div class="modal-upload upload">
+                    <form>
+                        <!-- <label class="btn upload-label" for="image_uploads">
+                            Choose images to upload</label> -->
+                        <input id="image_uploads" type="file" onchange="onFileLoad()" accept="image/*"
+                            style="opacity:0.3;">
+                    </form>
+                </div>
+                <div class="modal-upload url">
+                    <form>
+                    <input type="url">
+                    <input type="button" value="upload">
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </main>
 
 
