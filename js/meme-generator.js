@@ -160,8 +160,6 @@ function onRowDrag(elRow) {
     elRow.onmousedown = dragMouseDown;
 
     function dragMouseDown(ev) {        
-        // ev = ev || window.event;
-        // ev.preventDefault();
         gSelectedRow = row;
         elRow.setAttribute('draggable', "true");
         // get the mouse cursor position at startup:
@@ -173,7 +171,6 @@ function onRowDrag(elRow) {
             row.isFirst = false;
         }
         renderText()
-        
         document.onmouseup = closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
